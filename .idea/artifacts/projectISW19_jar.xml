@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="projectISW19:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/projectISW19_jar</output-path>
+    <root id="root">
+      <element id="archive" name="projectISW19.jar">
+        <element id="module-output" name="projectISW19" />
+      </element>
+      <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+      <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.1.1" />
+    </root>
+  </artifact>
+</component>

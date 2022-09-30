@@ -91,11 +91,11 @@ public class JVentana extends JFrame {
             message="Wrong account or wrong password";
         return message;
     }
-    public String Jugador(String jugador) {
+    public String Jugador(String nombre) {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();
         String context="/getJugador";
-        session.put("Nombre",jugador);
+        session.put("Nombre", nombre);
         session=cliente.sentMessage(context,session);
         Jugador j=(Jugador) session.get("Jugador");
         return j.getNombre();

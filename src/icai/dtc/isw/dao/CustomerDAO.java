@@ -14,15 +14,17 @@ public class CustomerDAO {
 	public static boolean confirmCustomer(String usuario, String password){
 		boolean confirmacion = false; //true si ha ido bien, false si no
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Usuarios"); //Esta sentencia devuelve todos los clientes
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
 			 ResultSet rs = pst.executeQuery()){
 			while(rs.next())
 			{
-				//Si el usuario se encuentra en la DB devolverá true
-				if (rs.getString(1).equals(usuario) && rs.getString(2).equals(password)) {
-					confirmacion = true;
+				String user= rs.getString(1).trim(); //La maldita \n al final
+				String pas= rs.getString(2).trim();
+				if (user.equals(usuario) && pas.equals(password)) {
+					return true;
 				}
 			}
+			return confirmacion;
 		}
 		catch (SQLException ex) {
 
@@ -60,7 +62,6 @@ public class CustomerDAO {
 			System.out.println(ex.getMessage());
 		}
 		return j;
-		//return new Customer("1","Atilano");
 	}
 	
 	public static void main(String[] args) {
@@ -77,4 +78,32 @@ public class CustomerDAO {
 	
 	}
 
+	public static String register(String nombre1, String correo, String password1) {
+		String resultado = "error"; //error default
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Usuarios"); //Esta sentencia devuelve todos los clientes
+			 ResultSet rs = pst.executeQuery()){
+			while(rs.next())
+			{
+				//Si el usuario se encuentra en la DB devolverá error-usuario
+				if (rs.getString(1).equals(nombre1)) {
+					resultado = "error-usuario";
+					break;
+				} else if (rs.getString(3).equals(correo)) {
+					resultado = "error-correo";
+					break;
+				}
+			}
+
+			//añadir usuario
+			resultado = "bien";
+
+		}
+
+		catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return resultado;
+	}
 }

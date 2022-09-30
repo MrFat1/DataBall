@@ -15,4 +15,8 @@ public class CustomerControler {
 	public boolean confirmCustomer(String usuario,String password) {
 		return(CustomerDAO.confirmCustomer(usuario,password));
 	}
+
+	public String registerCustomer(String nombre1, String correo, String password1) {
+		return (CustomerDAO.register(nombre1, correo, password1));
+	}
 }

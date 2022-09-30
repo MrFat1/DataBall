@@ -51,7 +51,7 @@ public class Client {
 		mensajeEnvio.setSession(session);
 		this.sent(mensajeEnvio,mensajeVuelta);
 		
-		
+		//Usaremos este para mensajes debug (solo se verán en la consola)
 		switch (mensajeVuelta.getContext()) { //Esto ya es lo que hara a la vuelta
 			case "/getCustomersResponse":
 				ArrayList<Jugador> lista=(ArrayList<Jugador>)(mensajeVuelta.getSession().get("Customers"));
@@ -78,6 +78,10 @@ public class Client {
 					System.out.println("Wrong account or wrong password");
 				}
 				break;
+
+			case "/getRegisterInfo":
+				session = mensajeVuelta.getSession();
+				System.out.println(session);
 
 			default:
 				Logger.getRootLogger().info("Option not found");

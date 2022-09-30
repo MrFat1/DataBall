@@ -1,13 +1,15 @@
 package icai.dtc.isw.ui;
 
 import icai.dtc.isw.client.Client;
-import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Jugador;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Esta clase es de testeos, no se usa en el proyecto.
+ */
 public class JVentana extends JFrame {
     public static void main(String[] args) {
         new JVentana();
@@ -61,9 +63,6 @@ public class JVentana extends JFrame {
         pnlSur.add(lblResultado);
         pnlSur.add(txtResultado);
         //Añado el listener al botón
-        btnInformacion.addActionListener(actionEvent -> {
-            txtResultado.setText(recuperarInformacion(txtCorreo.getText(),txtPassword.getText()));
-        });
         btnCorreo.addActionListener(actionEvent -> {
             txtResultado.setText(Jugador(txtCorreo.getText()));
         });
@@ -77,20 +76,6 @@ public class JVentana extends JFrame {
         this.setVisible(true);
     }
 
-    public String recuperarInformacion(String correo, String password) {
-        Client cliente=new Client();
-        String message=new String();
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/getAccount";
-        session.put("correo",correo);
-        session.put("password",password);
-        session=cliente.sentMessage(context,session);
-        if((boolean)session.get("confirmation")==true)
-            message="Your account has been confirmed";
-        else
-            message="Wrong account or wrong password";
-        return message;
-    }
     public String Jugador(String nombre) {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();
@@ -99,5 +84,24 @@ public class JVentana extends JFrame {
         session=cliente.sentMessage(context,session);
         Jugador j=(Jugador) session.get("Jugador");
         return j.getNombre();
+    }
+
+    public void Register(String nombre, String correo, String password) {
+        Client cliente=new Client();
+        HashMap<String,Object> session=new HashMap<>();
+        String context="/registerUser";
+        session.put("Nombre", nombre);
+        session.put("Correo", correo);
+        session.put("Password", password);
+        session=cliente.sentMessage(context,session);
+        if(session.get("confirmation").equals("bien")) {
+            JOptionPane.showMessageDialog(this, "Usuario registrado correctamente", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+        } else if (session.get("confirmation").equals("error-correo")) {
+            JOptionPane.showMessageDialog(this, "Error: Este correo ya existe", "Error", JOptionPane.WARNING_MESSAGE);
+        } else if (session.get("confirmation").equals("error-usuario")) {
+            JOptionPane.showMessageDialog(this, "Error: Este usuario ya existe", "Error", JOptionPane.WARNING_MESSAGE);
+        } else
+            JOptionPane.showMessageDialog(this, "Error desconocido, contacta con un administrador.", "Error", JOptionPane.WARNING_MESSAGE);
+
     }
 }

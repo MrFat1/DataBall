@@ -77,7 +77,7 @@ public class LogIn extends JFrame {
 	public void recuperarInformacion(String usuario, String password) {
 		Client cliente=new Client();
 		HashMap<String,Object> session=new HashMap<>();
-		String context="/getAccount";
+		String context="/getAccount"; //Tag para el server
 		session.put("usuario",  usuario);
 		session.put("password", password);
 		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)

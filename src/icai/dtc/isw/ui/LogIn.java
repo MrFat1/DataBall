@@ -76,12 +76,11 @@ public class LogIn extends JFrame {
 
 	public void recuperarInformacion(String usuario, String password) {
 		Client cliente=new Client();
-		String message=new String();
 		HashMap<String,Object> session=new HashMap<>();
 		String context="/getAccount";
 		session.put("usuario",  usuario);
 		session.put("password", password);
-		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info de confirmación
+		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
 		if((boolean)session.get("confirmation")==true)
 			JOptionPane.showMessageDialog(this, "Your account has been confirmed", "Welcome", JOptionPane.INFORMATION_MESSAGE);
 

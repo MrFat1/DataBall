@@ -18,8 +18,12 @@ public class CustomerDAO {
 			 ResultSet rs = pst.executeQuery()){
 			while(rs.next())
 			{
-					if (rs.getString(1).equals(Correo) && rs.getString(2).equals(password)) {
-					a = true;
+				String c= rs.getString(1).trim();
+				String d= rs.getString(2).trim();
+				System.out.println(Correo+""+password);
+				System.out.println(c+ ""+ d);
+				if (c.equals(Correo) && d.equals(password)) {
+					return true;
 				}
 			}
 			return a;

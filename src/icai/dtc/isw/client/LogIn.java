@@ -78,7 +78,7 @@ public class LogIn extends JFrame {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();
         String context="/getAccount";
-        session.put("usuario",  usuario);
+        session.put("correo",  usuario);
         session.put("password", password);
         session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
         if((boolean)session.get("confirmation")==true)

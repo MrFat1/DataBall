@@ -63,7 +63,7 @@ public class JVentana extends JFrame {
             txtResultado.setText(recuperarInformacion(txtCorreo.getText(),txtPassword.getText()));
         });
         btnCorreo.addActionListener(actionEvent -> {
-            txtResultado.setText(Jugador(txtCorreo.getText()));
+            txtResultado.setText(Jugador(txtJugador.getText()));
         });
         pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.X_AXIS));
         this.add(pnlSur,BorderLayout.SOUTH);
@@ -92,10 +92,10 @@ public class JVentana extends JFrame {
     public String Jugador(String jugador) {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();
-        String context="/getJugador";
-        session.put("Nombre",jugador);
+        String context="/getjugador";
+        session.put("nombre",jugador);
         session=cliente.sentMessage(context,session);
-        Jugador j=(Jugador) session.get("Jugador");
+        Jugador j=(Jugador) session.get("jugador");
         return j.getNombre();
     }
 }

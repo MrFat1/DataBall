@@ -13,18 +13,15 @@ public class CustomerDAO {
 	
 	public static boolean confirmCustomer(String Correo, String password){
 		boolean a=false;
-		Customer  s=null;
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Usuarios");
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
 			 ResultSet rs = pst.executeQuery()){
 			while(rs.next())
 			{
-				s=new Customer(rs.getString(1), rs.getString(2));
+					if (rs.getString(1).equals(Correo) && rs.getString(2).equals(password)) {
+					a = true;
+				}
 			}
-			if(s!=null){
-				a=true;
-			}
-			System.out.println(s);
 			return a;
 		}
 		catch (SQLException ex) {
@@ -48,10 +45,11 @@ public class CustomerDAO {
             System.out.println(ex.getMessage());
         }
 	}
-	public static Jugador getJugador(String Nombre) {
+	public static Jugador getJugador(String nombre) {
 		Connection con=ConnectionDAO.getInstance().getConnection();
 		Jugador j=null;
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE nombre ='"+Nombre+"'");
+		System.out.println(nombre);
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM jugadores WHERE nombre ='"+nombre+"'");
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {

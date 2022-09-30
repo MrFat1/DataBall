@@ -46,7 +46,7 @@ public class Client {
 		mensajeEnvio.setContext(Context);///getCustomer"
 		mensajeEnvio.setSession(session);
 		this.sent(mensajeEnvio,mensajeVuelta);
-		
+
 		
 		switch (mensajeVuelta.getContext()) {
 			case "/getCustomersResponse":
@@ -57,7 +57,7 @@ public class Client {
 				break;
 			case "/getCustomerResponse":
 				session=mensajeVuelta.getSession();
-				Jugador j =(Jugador) (session.get("Jugador"));
+				Jugador j =(Jugador) (session.get("jugador"));
 				System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
 				break;
 			case "/getAccountConfirmation":

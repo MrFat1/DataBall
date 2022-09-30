@@ -54,13 +54,14 @@ public class SocketServer extends Thread {
 		    		mensajeOut.setSession(session);
 		    		objectOutputStream.writeObject(mensajeOut);		    		
 		    		break;
-				case "/getJugador":
-					String nombre= (String) session.get("Nombre");
+				case "/getjugador":
+					String nombre= (String)session.get("nombre");
+					System.out.println(nombre);
 					customerControler=new CustomerControler();
 					Jugador jugador=customerControler.getJugador(nombre);
 					System.out.println("Nombre:"+jugador.getNombre());
 					mensajeOut.setContext("/getCustomerResponse");
-					session.put("Jugador",jugador);
+					session.put("jugador",jugador);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;

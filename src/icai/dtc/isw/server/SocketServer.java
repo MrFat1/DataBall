@@ -71,7 +71,7 @@ public class SocketServer extends Thread {
 					String password= (String) session.get("password"); //Coge la contrseña que ha introducido
 					mensajeOut.setContext("/getAccountConfirmation"); //Devolverá este tag al cliente para que decida que hacer con la info
 					boolean account=customerControler.confirmCustomer(user,password);
-					session.put("confirmation",account); //Esto va al Jventana del login (account: true si todo ha ido bien, false si no)
+					session.put("confirmation",account); //Esto devolverá el resultado con el tag "confirmation" (account: true si todo ha ido bien, false si no)
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;

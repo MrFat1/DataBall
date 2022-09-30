@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DataBall-server" />
+        <module name="DataBall" />
         <module name="projectISW19" />
       </profile>
     </annotationProcessing>

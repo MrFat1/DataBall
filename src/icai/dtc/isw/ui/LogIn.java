@@ -70,11 +70,11 @@ public class LogIn extends JFrame {
 
 		//Botones
 		btnLogin.addActionListener(actionEvent -> {
-			System.out.println((recuperarInformacion(txtUser.getText(),txtPassword.getText())));
+			recuperarInformacion(txtUser.getText(),txtPassword.getText());
 		});
 	}
 
-	public String recuperarInformacion(String usuario, String password) {
+	public void recuperarInformacion(String usuario, String password) {
 		Client cliente=new Client();
 		String message=new String();
 		HashMap<String,Object> session=new HashMap<>();
@@ -83,9 +83,9 @@ public class LogIn extends JFrame {
 		session.put("password", password);
 		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info de confirmación
 		if((boolean)session.get("confirmation")==true)
-			message="Your account has been confirmed";
+			JOptionPane.showMessageDialog(this, "Your account has been confirmed", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+
 		else
-			message="Wrong account or wrong password";
-		return message;
+			JOptionPane.showMessageDialog(this, "Wrong account or wrong password", "Error", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

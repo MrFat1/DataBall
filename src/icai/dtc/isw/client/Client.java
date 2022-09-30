@@ -70,11 +70,11 @@ public class Client {
 				boolean b = (boolean) session.get("confirmation");
 				if(b)
 				{
-					JOptionPane.showMessageDialog(Jlogin, "Your account has been confirmed", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+
 					System.out.println("Your account has been confirmed");
 				}
 				else{
-					JOptionPane.showMessageDialog(Jlogin, "Wrong account or wrong password", "Error", JOptionPane.INFORMATION_MESSAGE);
+
 					System.out.println("Wrong account or wrong password");
 				}
 				break;

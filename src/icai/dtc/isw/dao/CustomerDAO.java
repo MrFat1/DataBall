@@ -11,26 +11,27 @@ import icai.dtc.isw.domain.Jugador;
 
 public class CustomerDAO {
 	
-	public static boolean confirmCustomer(String usuario, String password){
-		boolean confirmacion = false; //true si ha ido bien, false si no
+	public static boolean confirmCustomer(String Correo, String password){
+		boolean a=false;
+		Customer  s=null;
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Usuarios");
 			 ResultSet rs = pst.executeQuery()){
 			while(rs.next())
 			{
-				String user= rs.getString(1).trim(); //La maldita \n al final
-				String pas= rs.getString(2).trim();
-				if (user.equals(usuario) && pas.equals(password)) {
-					return true;
-				}
+				s=new Customer(rs.getString(1), rs.getString(2));
 			}
-			return confirmacion;
+			if(s!=null){
+				a=true;
+			}
+			System.out.println(s);
+			return a;
 		}
 		catch (SQLException ex) {
 
 			System.out.println(ex.getMessage());
 		}
-		return confirmacion;
+		return a;
 	}
 
 	public static void getJugadores(ArrayList<Jugador> lista) {
@@ -62,6 +63,7 @@ public class CustomerDAO {
 			System.out.println(ex.getMessage());
 		}
 		return j;
+		//return new Customer("1","Atilano");
 	}
 	
 	public static void main(String[] args) {
@@ -78,32 +80,4 @@ public class CustomerDAO {
 	
 	}
 
-	public static String register(String nombre1, String correo, String password1) {
-		String resultado = "error"; //error default
-		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Usuarios"); //Esta sentencia devuelve todos los clientes
-			 ResultSet rs = pst.executeQuery()){
-			while(rs.next())
-			{
-				//Si el usuario se encuentra en la DB devolverá error-usuario
-				if (rs.getString(1).equals(nombre1)) {
-					resultado = "error-usuario";
-					break;
-				} else if (rs.getString(3).equals(correo)) {
-					resultado = "error-correo";
-					break;
-				}
-			}
-
-			//añadir usuario
-			resultado = "bien";
-
-		}
-
-		catch (SQLException ex) {
-
-			System.out.println(ex.getMessage());
-		}
-		return resultado;
-	}
 }

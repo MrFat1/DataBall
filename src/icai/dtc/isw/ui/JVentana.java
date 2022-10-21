@@ -5,16 +5,15 @@ import icai.dtc.isw.domain.Jugador;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Esta clase es de testeos, no se usa en el proyecto.
- */
 public class JVentana extends JFrame {
     public static void main(String[] args) {
         new JVentana();
     }
     private int id;
+    public static JComboBox opciones;
     private String correo;
     public JVentana() {
         super("INGENIERÍA DEL SOFTWARE");
@@ -30,41 +29,54 @@ public class JVentana extends JFrame {
         JPanel pnlCentro = new JPanel();
         JPanel pnlCorreo = new JPanel();
         JLabel lblCorreo = new JLabel("Introduzca un jugador");
-        JButton btnCorreo= new JButton("Recibir correo");
+        JButton btnBusqueda= new JButton("Buscar");
         JTextField txtJugador = new JTextField(20);
         txtJugador.setBounds(new Rectangle(200,350,250,100));
         txtJugador.setHorizontalAlignment(JTextField.LEFT);
         pnlCorreo.add(lblCorreo);
         pnlCorreo.add(txtJugador);
-        pnlCorreo.add(btnCorreo);
+        //pnlCorreo.add(btnCorreo);
+        opciones = new JComboBox();
+        opciones.addItem("nombre");
+        opciones.addItem("posicion");
+        opciones.addItem("equipo");
+        opciones.addItem("goles");
+        opciones.addItem("asistencias");
+        opciones.addItem("partidos jugados");
+        opciones.addItem("tarjetas amarillas");
+        opciones.addItem("tarjetas rojas");
+
         JLabel lblId = new JLabel("Introduzca su correo", SwingConstants.CENTER);
         JButton btnInformacion = new JButton("Recibir información");
-
-        JTextField txtCorreo = new JTextField();
-        JTextField txtPassword = new JTextField();
-        txtCorreo.setBounds(new Rectangle(250,150,250,150));
-        txtCorreo.setHorizontalAlignment(JTextField.LEFT);
-
+        //JTextField txtCorreo = new JTextField();
+        //JTextField txtPassword = new JTextField();
+        //txtCorreo.setBounds(new Rectangle(250,150,250,150));
+        //txtCorreo.setHorizontalAlignment(JTextField.LEFT);
         pnlCentro.add(lblId);
-        pnlCentro.add(txtCorreo);
-        pnlCentro.add(txtPassword);
+        //pnlCentro.add(txtCorreo);
+        //pnlCentro.add(txtPassword);
+        //pnlCentro.add(opciones);
         pnlCentro.add(btnInformacion);
         pnlCentro.setLayout(new BoxLayout(pnlCentro, BoxLayout.	X_AXIS));
-        this.add(pnlCentro, BorderLayout.NORTH);
-        this.add(pnlCorreo,BorderLayout.CENTER);
+        JPanel pnlBusqueda= new JPanel();
+        pnlBusqueda.add(txtJugador);
+        pnlBusqueda.add(opciones);
+        pnlBusqueda.add(btnBusqueda);
+        //this.add(pnlCentro, BorderLayout.NORTH);
+        this.add(pnlBusqueda,BorderLayout.CENTER);
 
         //El Sur lo hago para recoger el resultado
         JPanel pnlSur = new JPanel();
         JLabel lblResultado = new JLabel("El resultado obtenido es: ", SwingConstants.CENTER);
         JTextField txtResultado = new JTextField();
         txtResultado.setBounds(new Rectangle(250,150,250,150));
-        txtResultado.setEditable(false);
         txtResultado.setHorizontalAlignment(JTextField.LEFT);
         pnlSur.add(lblResultado);
         pnlSur.add(txtResultado);
         //Añado el listener al botón
-        btnCorreo.addActionListener(actionEvent -> {
-            txtResultado.setText(Jugador(txtCorreo.getText()));
+
+        btnBusqueda.addActionListener(actionEvent -> {
+            Buscar(txtJugador.getText(), (String) opciones.getSelectedItem());
         });
         pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.X_AXIS));
         this.add(pnlSur,BorderLayout.SOUTH);
@@ -76,32 +88,29 @@ public class JVentana extends JFrame {
         this.setVisible(true);
     }
 
-    public String Jugador(String nombre) {
+    public String recuperarInformacion( String correo, String password) {
+        Client cliente=new Client();
+        String message=new String();
+        HashMap<String,Object> session=new HashMap<>();
+        String context="/getAccount";
+        session.put("correo",correo);
+        session.put("password",password);
+        session=cliente.sentMessage(context,session);
+        if((boolean)session.get("confirmation")==true)
+            message="Your account has been confirmed";
+        else
+            message="Wrong account or wrong password";
+        return message;
+    }
+    public ArrayList<Jugador> Buscar(String Busqueda, String opcion) {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();
-        String context="/getJugador";
-        session.put("Nombre", nombre);
+        String context="/getbusqueda";
+        session.put("jugador",Busqueda);
+        session.put("opcion",opcion);
         session=cliente.sentMessage(context,session);
-        Jugador j=(Jugador) session.get("Jugador");
-        return j.getNombre();
+        ArrayList<Jugador> lista= (ArrayList<Jugador>) session.get("Jugadores");
+        return lista;
     }
-
-    public void Register(String nombre, String correo, String password) {
-        Client cliente=new Client();
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/registerUser";
-        session.put("Nombre", nombre);
-        session.put("Correo", correo);
-        session.put("Password", password);
-        session=cliente.sentMessage(context,session);
-        if(session.get("confirmation").equals("bien")) {
-            JOptionPane.showMessageDialog(this, "Usuario registrado correctamente", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-        } else if (session.get("confirmation").equals("error-correo")) {
-            JOptionPane.showMessageDialog(this, "Error: Este correo ya existe", "Error", JOptionPane.WARNING_MESSAGE);
-        } else if (session.get("confirmation").equals("error-usuario")) {
-            JOptionPane.showMessageDialog(this, "Error: Este usuario ya existe", "Error", JOptionPane.WARNING_MESSAGE);
-        } else
-            JOptionPane.showMessageDialog(this, "Error desconocido, contacta con un administrador.", "Error", JOptionPane.WARNING_MESSAGE);
-
-    }
+    //public static void
 }

@@ -19,16 +19,11 @@ public class PropertiesISW extends Properties{
 	private PropertiesISW() {
 		try {
 			this.loadFromXML(new FileInputStream(path));
-		} catch (InvalidPropertiesFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		};
+		}
+		;
 	}
 	
 	public static PropertiesISW getInstance() {

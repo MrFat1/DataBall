@@ -54,29 +54,42 @@ public class SocketServer extends Thread {
 		    		mensajeOut.setSession(session);
 		    		objectOutputStream.writeObject(mensajeOut);		    		
 		    		break;
-				case "/getjugador":
-					String nombre= (String)session.get("nombre");
-					System.out.println(nombre);
+				case "/getJugador":
+					String nombre= (String) session.get("Nombre");
 					customerControler=new CustomerControler();
 					Jugador jugador=customerControler.getJugador(nombre);
 					System.out.println("Nombre:"+jugador.getNombre());
 					mensajeOut.setContext("/getCustomerResponse");
-					session.put("jugador",jugador);
+					session.put("Jugador",jugador);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+
 				case "/getAccount":
 					customerControler=new CustomerControler();
-					String correo= (String) session.get("correo");
-					String password= (String) session.get("password");
-					mensajeOut.setContext("/getAccountConfirmation");
-					boolean account=customerControler.confirmCustomer(correo,password);
-					session.put("confirmation",account);
+					String user= (String) session.get("usuario"); //Coge el usuario que ha introducido
+					String password= (String) session.get("password"); //Coge la contrseña que ha introducido
+					mensajeOut.setContext("/getAccountConfirmation"); //Devolverá este tag al cliente para que decida que hacer con la info
+					boolean account=customerControler.confirmCustomer(user,password);
+					session.put("confirmation",account); //Esto devolverá el resultado con el tag "confirmation" (account: true si todo ha ido bien, false si no)
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+
+				case "/registerUser":
+					customerControler=new CustomerControler();
+					String nombre1 = (String) session.get("nombre");
+					String correo = (String) session.get("correo");
+					String password1 = (String) session.get("password");
+					mensajeOut.setContext("/getRegisterInfo"); //Devolverá este tag al cliente para que decida que hacer con la info
+					String resultadoRegister = customerControler.registerCustomer(nombre1,correo, password1);
+					session.put("confirmation" , resultadoRegister); //Esto devolverá el resultado con el tag "confirmation" al JRegister
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
 		    	default:
-		    		System.out.println("\nParámetro no encontrado");
+		    		System.out.println("\nError al encontrar un parámetro");
 		    		break;
 		    }
 		    
@@ -123,7 +136,7 @@ public class SocketServer extends Thread {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("SocketServer Example");
+		System.out.println("SocketServer starting");
 		ServerSocket server = null;
 		try {
 			server = new ServerSocket(port);

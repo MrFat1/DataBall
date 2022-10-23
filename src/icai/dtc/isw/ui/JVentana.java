@@ -87,21 +87,6 @@ public class JVentana extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-
-    public String recuperarInformacion( String correo, String password) {
-        Client cliente=new Client();
-        String message=new String();
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/getAccount";
-        session.put("correo",correo);
-        session.put("password",password);
-        session=cliente.sentMessage(context,session);
-        if((boolean)session.get("confirmation")==true)
-            message="Your account has been confirmed";
-        else
-            message="Wrong account or wrong password";
-        return message;
-    }
     public ArrayList<Jugador> Buscar(String Busqueda, String opcion) {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();
@@ -113,4 +98,15 @@ public class JVentana extends JFrame {
         return lista;
     }
     //public static void
+
+    public String Jugador(String nombre) {
+        Client cliente=new Client();
+        HashMap<String,Object> session=new HashMap<>();
+        String context="/getJugador";
+        session.put("Nombre", nombre);
+        session=cliente.sentMessage(context,session);
+        Jugador j=(Jugador) session.get("Jugador");
+        return j.getNombre();
+    }
+
 }

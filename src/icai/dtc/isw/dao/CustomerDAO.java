@@ -10,31 +10,39 @@ import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Jugador;
 
 public class CustomerDAO {
-	
-	public static boolean confirmCustomer(String Correo, String password){
-		boolean a=false;
+
+	/**
+	 * Comprueba si el usuario se encuentra en la base de datos
+	 * @param usuario Usuario a comprobar
+	 * @param password Contraseña de dicho usuario
+	 * @return Devuelve la confirmación
+	 */
+	public static boolean confirmCustomer(String usuario, String password){
+		boolean confirmacion = false; //true si ha ido bien, false si no
 		Connection con=ConnectionDAO.getInstance().getConnection();
 		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
 			 ResultSet rs = pst.executeQuery()){
 			while(rs.next())
 			{
-				String c= rs.getString(1).trim();
-				String d= rs.getString(2).trim();
-				System.out.println(Correo+""+password);
-				System.out.println(c+ ""+ d);
-				if (c.equals(Correo) && d.equals(password)) {
+				String user= rs.getString(1).trim(); //La mierda del \n al final
+				String pas= rs.getString(2).trim();
+				if (user.equals(usuario) && pas.equals(password)) {
 					return true;
 				}
 			}
-			return a;
+			return confirmacion;
 		}
 		catch (SQLException ex) {
 
 			System.out.println(ex.getMessage());
 		}
-		return a;
+		return confirmacion;
 	}
 
+	/**
+	 * Método para obtener una lista con todos los jugadores en la DB
+	 * @param lista
+	 */
 	public static void getJugadores(ArrayList<Jugador> lista) {
 		Connection con=ConnectionDAO.getInstance().getConnection();
 		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores");
@@ -49,11 +57,16 @@ public class CustomerDAO {
             System.out.println(ex.getMessage());
         }
 	}
-	public static Jugador getJugador(String nombre) {
+
+	/**
+	 * Método para obtener un jugador específico
+	 * @param Nombre Busca por nombre
+	 * @return
+	 */
+	public static Jugador getJugador(String Nombre) {
 		Connection con=ConnectionDAO.getInstance().getConnection();
 		Jugador j=null;
-		System.out.println(nombre);
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM jugadores WHERE nombre ='"+nombre+"'");
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE nombre ='"+Nombre+"'");
 			 ResultSet rs = pst.executeQuery()) {
 
 			while (rs.next()) {
@@ -65,21 +78,64 @@ public class CustomerDAO {
 			System.out.println(ex.getMessage());
 		}
 		return j;
-		//return new Customer("1","Atilano");
 	}
 	
 	public static void main(String[] args) {
-		
-		
 		ArrayList<Jugador> lista= new ArrayList<>();
 		CustomerDAO.getJugadores(lista);
-		
 		
 		 for (Jugador j : lista) {
 			System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
 		}
-		
-	
 	}
 
+	/**
+	 * Método para comprobar si existe un usuario y registrarlo
+	 * @param nombre1
+	 * @param correo
+	 * @param password1
+	 * @return
+	 */
+	public static String register(String nombre1, String correo, String password1) {
+		String resultado = "error"; //error default
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		//Primero comprobamos si el usuario esta ya registrado (comprueba correo y username)
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
+			 ResultSet rs = pst.executeQuery()) {
+			while (rs.next()) {
+				//Si el usuario se encuentra en la DB devolverá error-usuario
+				if (rs.getString(1).equals(nombre1)) {
+					resultado = "error-usuario";
+					break;
+				} else if (rs.getString(3).equals(correo)) {
+					resultado = "error-correo";
+					break;
+				}
+			}
+		}
+		catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+
+		//Si llegamos hasta aqui significa que no hay problema con el usuario o el correo
+
+		//Requisito no funcional: Contraseña alfanumérica
+
+		if (!password1.matches("^[a-zA-Z0-9]*$")) {
+			resultado = "error-contraseña";
+		} else {
+
+			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (nombre, correo, password) VALUES (" + nombre1 + "," + correo + "," + password1 + ")");
+				 ResultSet rs2 = pst2.executeQuery()) {
+
+				resultado = "bien";
+
+			}
+			catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+		return resultado;
+	}
 }

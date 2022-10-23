@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.ui.LogIn;
 import org.apache.log4j.Logger;
 
 import icai.dtc.isw.configuration.PropertiesISW;
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.message.Message;
+
+import javax.swing.*;
 
 public class Client {
 	private String host;
@@ -46,9 +49,9 @@ public class Client {
 		mensajeEnvio.setContext(Context);///getCustomer"
 		mensajeEnvio.setSession(session);
 		this.sent(mensajeEnvio,mensajeVuelta);
-
 		
-		switch (mensajeVuelta.getContext()) {
+		//Usaremos este para mensajes debug (solo se verán en la consola)
+		switch (mensajeVuelta.getContext()) { //Esto ya es lo que hara a la vuelta
 			case "/getCustomersResponse":
 				ArrayList<Jugador> lista=(ArrayList<Jugador>)(mensajeVuelta.getSession().get("Customers"));
 				for (Jugador j : lista) {
@@ -57,20 +60,28 @@ public class Client {
 				break;
 			case "/getCustomerResponse":
 				session=mensajeVuelta.getSession();
-				Jugador j =(Jugador) (session.get("jugador"));
+				Jugador j =(Jugador) (session.get("Jugador"));
 				System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
 				break;
+
 			case "/getAccountConfirmation":
 				session=mensajeVuelta.getSession();
-				boolean b=(boolean) session.get("confirmation");
-				if(b==true)
+				boolean b = (boolean) session.get("confirmation");
+				if(b)
 				{
+
 					System.out.println("Your account has been confirmed");
 				}
 				else{
+
 					System.out.println("Wrong account or wrong password");
 				}
 				break;
+
+			case "/getRegisterInfo":
+				session = mensajeVuelta.getSession();
+				System.out.println(session);
+
 			default:
 				Logger.getRootLogger().info("Option not found");
 				System.out.println("\nError a la vuelta");

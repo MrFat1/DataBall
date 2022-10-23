@@ -12,11 +12,8 @@ public class LogIn extends JFrame {
 	public static void main(String[] args) {
 		new LogIn();
 	}
-	//constructor
 	public LogIn() 
 	{
-
-		//JFrame frame = new JFrame();
 
 		this.setVisible(true);
 		this.setSize(500,500); //cambiar el tamaño aqui.
@@ -74,6 +71,11 @@ public class LogIn extends JFrame {
 		});
 	}
 
+	/**
+	 * Método para comprobar si el usuario se encuentra registrado en la base de datos
+	 * @param usuario
+	 * @param password
+	 */
 	public void recuperarInformacion(String usuario, String password) {
 		Client cliente=new Client();
 		HashMap<String,Object> session=new HashMap<>();
@@ -82,9 +84,30 @@ public class LogIn extends JFrame {
 		session.put("password", password);
 		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
 		if((boolean)session.get("confirmation")==true)
-			JOptionPane.showMessageDialog(this, "Your account has been confirmed", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
 
 		else
-			JOptionPane.showMessageDialog(this, "Wrong account or wrong password", "Error", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void Register(String nombre, String correo, String password) {
+		Client cliente=new Client();
+		HashMap<String,Object> session=new HashMap<>();
+		String context="/registerUser";
+		session.put("Nombre", nombre);
+		session.put("Correo", correo);
+		session.put("Password", password);
+		session=cliente.sentMessage(context,session); //Devuelve un string con info sobre el registro
+		if(session.get("confirmation").equals("bien")) { //if resultadoRegister equals ()
+			JOptionPane.showMessageDialog(this, "Usuario registrado correctamente", "Bienvenido a Databall", JOptionPane.INFORMATION_MESSAGE);
+		} else if (session.get("confirmation").equals("error-correo")) {
+			JOptionPane.showMessageDialog(this, "Error: Este correo ya existe", "Error", JOptionPane.WARNING_MESSAGE);
+		} else if (session.get("confirmation").equals("error-usuario")) {
+			JOptionPane.showMessageDialog(this, "Error: Este usuario ya existe", "Error", JOptionPane.WARNING_MESSAGE);
+		} else if (session.get("confirmation").equals("error-contraseña")) {
+			JOptionPane.showMessageDialog(this, "Error: La contraseña debe ser alfanumérica", "Error", JOptionPane.WARNING_MESSAGE);
+		} else
+			JOptionPane.showMessageDialog(this, "Error desconocido, contacta con un administrador.", "Error", JOptionPane.WARNING_MESSAGE);
+
 	}
 }

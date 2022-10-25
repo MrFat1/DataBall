@@ -77,9 +77,10 @@ public class LogIn extends JFrame {
 		session.put("usuario",  usuario);
 		session.put("password", password);
 		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
-		if((boolean) session.get("confirmation"))
+		if((boolean) session.get("confirmation")) {
 			JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-
+			new JVentana();
+		}
 		else
 			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
 	}

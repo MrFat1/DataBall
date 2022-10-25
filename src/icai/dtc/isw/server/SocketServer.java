@@ -85,9 +85,10 @@ public class SocketServer extends Thread {
 					String password1 = (String) session.get("password");
 					mensajeOut.setContext("/getRegisterInfo"); //Devolverá este tag al cliente para que decida que hacer con la info
 					String resultadoRegister = customerControler.registerCustomer(nombre1,correo, password1);
-					session.put("confirmation" , resultadoRegister); //Esto devolverá el resultado con el tag "confirmation" al JRegister
+					session.put("confirmation",resultadoRegister); //Esto devolverá el resultado con el tag "confirmation" al JRegister
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
+
 					break;
 
 		    	default:

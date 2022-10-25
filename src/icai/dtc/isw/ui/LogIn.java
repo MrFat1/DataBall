@@ -10,6 +10,13 @@ public class LogIn extends JFrame {
 	public static void main(String[] args) {
 		new LogIn();
 	}
+	//Es necesario hacerlos static para que los action listeners puedan interactuar con ellos
+	private static JButton btnLogin;
+	private static JPanel fila4;
+	private static JTextField txtPassword;
+	private static JTextField txtUser;
+	private static JTextField txtCorreo;
+	private boolean Pulsado=false;
 	public LogIn() 
 	{
 
@@ -20,7 +27,7 @@ public class LogIn extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 
-		this.setLayout(new GridLayout(3,1));
+		this.setLayout(new GridLayout(4,1));
 
 		JPanel fila1 = new JPanel();
 
@@ -30,7 +37,7 @@ public class LogIn extends JFrame {
 		JLabel lblUsuario = new JLabel("Introduzca nombre de usuario: ");
 		fila1.add(lblUsuario);
 
-		JTextField txtUser = new JTextField(15);
+		txtUser = new JTextField(15);
 		fila1.add(txtUser);
 
 		this.add(fila1);
@@ -43,7 +50,7 @@ public class LogIn extends JFrame {
 		JLabel lblPassword = new JLabel("Introduzca contraseña: ");
 		fila2.add(lblPassword);
 
-		JPasswordField txtPassword = new JPasswordField(10);
+		txtPassword = new JPasswordField(10);
 		fila2.add(txtPassword);
 
 		this.add(fila2);
@@ -53,10 +60,42 @@ public class LogIn extends JFrame {
 		FlowLayout layout3 = new FlowLayout();
 		fila3.setLayout(layout3);
 
-		JButton btnLogin = new JButton("Iniciar sesion");
+		//Juan
+		fila4 =new JPanel();
+		FlowLayout layout4= new FlowLayout();
+		fila4.setLayout(layout4);
+
+		JLabel lblCorreo=new JLabel("Introducza su correo");
+		txtCorreo= new JTextField(10);
+		fila4.add(lblCorreo);
+		fila4.add(txtCorreo);
+		this.add(fila4);
+		fila4.setVisible(false);
+
+		JButton Register= new JButton("Registrarse");
+		Register.addActionListener(actionEvent->{
+
+			if(Pulsado==true)
+			{
+				Register(txtUser.getText(),txtCorreo.getText(),txtPassword.getText());
+
+			}
+			else
+			{
+				Pulsado=true;
+				fila4.setVisible(true);
+				btnLogin.setVisible(false);
+			}
+		});
+
+
+		//
+		btnLogin = new JButton("Iniciar sesion");
 		//btnLogin.setBounds(200,100,100,50);
 		fila3.add(btnLogin);
+		fila3.add(Register);
 		this.add(fila3);
+
 		pack();
 
 		//Botones
@@ -95,12 +134,18 @@ public class LogIn extends JFrame {
 		Client cliente=new Client();
 		HashMap<String,Object> session=new HashMap<>();
 		String context="/registerUser";
-		session.put("Nombre", nombre);
-		session.put("Correo", correo);
-		session.put("Password", password);
+		session.put("nombre", nombre);
+		session.put("correo", correo);
+		session.put("password", password);
 		session=cliente.sentMessage(context,session); //Devuelve un string con info sobre el registro
 		if(session.get("confirmation").equals("bien")) { //if resultadoRegister equals ()
 			JOptionPane.showMessageDialog(this, "Usuario registrado correctamente", "Bienvenido a Databall", JOptionPane.INFORMATION_MESSAGE);
+			btnLogin.setVisible(true);
+			Pulsado=false;
+			fila4.setVisible(false);
+			txtPassword.setText(null);
+			txtUser.setText(null);
+			txtCorreo.setText(null);
 		} else if (session.get("confirmation").equals("error-correo")) {
 			JOptionPane.showMessageDialog(this, "Error: Este correo ya existe", "Error", JOptionPane.WARNING_MESSAGE);
 		} else if (session.get("confirmation").equals("error-usuario")) {

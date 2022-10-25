@@ -125,12 +125,11 @@ public class CustomerDAO {
 
 		//Requisito no funcional: Contraseña alfanumérica
 
-		if (!password1.matches("^[a-zA-Z0-9]*$")) {
+		/*if (!password1.matches("^[a-zA-Z0-9]*$")) {
 			resultado = "error-contraseña";
-		} else {
+		} else {*/
 
-			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario) VALUES (" + correo + "," + password1 + "," + nombre1 + ")");
-				 ResultSet rs2 = pst2.executeQuery()) {
+			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario) VALUES ('" + correo + "','" + password1 + "','" + nombre1 + "');");) {
 
 				resultado = "bien";
 
@@ -138,7 +137,7 @@ public class CustomerDAO {
 			catch (SQLException ex) {
 				System.out.println(ex.getMessage());
 			}
-		}
+		//}
 		return resultado;
 	}
 }

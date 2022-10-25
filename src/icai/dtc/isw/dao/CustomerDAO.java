@@ -71,6 +71,7 @@ public class CustomerDAO {
 		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE nombre ='"+Nombre+"'");
 			 ResultSet rs = pst.executeQuery()) {
 
+			// rs es el conjunto de filas
 			while (rs.next()) {
 				 j= new Jugador(rs.getString(1),rs.getString(2), rs.getString(3),rs.getInt(4),rs.getInt(5), rs.getInt(6),rs.getInt(7),rs.getInt(8));
 			}
@@ -128,7 +129,7 @@ public class CustomerDAO {
 			resultado = "error-contraseña";
 		} else {
 
-			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (nombre, correo, password) VALUES (" + nombre1 + "," + correo + "," + password1 + ")");
+			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario) VALUES (" + correo + "," + password1 + "," + nombre1 + ")");
 				 ResultSet rs2 = pst2.executeQuery()) {
 
 				resultado = "bien";

@@ -97,7 +97,6 @@ public class JVentana extends JFrame {
         ArrayList<Jugador> lista= (ArrayList<Jugador>) session.get("Jugadores");
         return lista;
     }
-    //public static void
 
     public String Jugador(String nombre) {
         Client cliente=new Client();

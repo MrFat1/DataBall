@@ -6,8 +6,6 @@ import java.awt.*;
 import java.util.HashMap;
 import javax.swing.*;
 
-//import javax.swing.JFrame;
-
 public class LogIn extends JFrame {
 	public static void main(String[] args) {
 		new LogIn();
@@ -22,11 +20,7 @@ public class LogIn extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 
-
-		// CREO EL CONTENEDOR
-
 		this.setLayout(new GridLayout(3,1));
-
 
 		JPanel fila1 = new JPanel();
 
@@ -83,13 +77,19 @@ public class LogIn extends JFrame {
 		session.put("usuario",  usuario);
 		session.put("password", password);
 		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
-		if((boolean)session.get("confirmation")==true)
+		if((boolean) session.get("confirmation"))
 			JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
 
 		else
 			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	/**
+	 * Método para el registro de usuarios
+	 * @param nombre
+	 * @param correo
+	 * @param password
+	 */
 	public void Register(String nombre, String correo, String password) {
 		Client cliente=new Client();
 		HashMap<String,Object> session=new HashMap<>();

@@ -44,10 +44,12 @@ public class SocketServer extends Thread {
 			HashMap<String,Object> session=mensajeIn.getSession();
 			CustomerControler customerControler;
 		    switch (mensajeIn.getContext()) {
-		    	case "/getJugadores":
+		    	case "/getbusqueda":
 		    		customerControler=new CustomerControler();
+					String opcion= (String) session.get("opcion");
+					String busqueda= (String) session.get("jugador");
 		    		ArrayList<Jugador> lista=new ArrayList<Jugador>();
-		    		customerControler.getCustomers(lista);
+		    		lista=customerControler.getBusqueda(busqueda, opcion);
 		    		mensajeOut.setContext("/getCustomersResponse");
 		    		//HashMap<String,Object> session=new HashMap<String, Object>();
 		    		session.put("Customers",lista);

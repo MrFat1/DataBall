@@ -43,9 +43,10 @@ public class CustomerDAO {
 	 * Método para obtener una lista con todos los jugadores en la DB
 	 * @param lista
 	 */
-	public static void getJugadores(ArrayList<Jugador> lista) {
+	public static ArrayList<Jugador> getJugadores(String opcion, String busqueda) {
+		ArrayList<Jugador> lista= new ArrayList<>();
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores");
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE "+opcion+"='"+busqueda+"'");
                 ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
@@ -56,6 +57,7 @@ public class CustomerDAO {
 
             System.out.println(ex.getMessage());
         }
+		return lista;
 	}
 
 	/**
@@ -82,7 +84,7 @@ public class CustomerDAO {
 	
 	public static void main(String[] args) {
 		ArrayList<Jugador> lista= new ArrayList<>();
-		CustomerDAO.getJugadores(lista);
+		//CustomerDAO.getJugadores(lista);
 		
 		 for (Jugador j : lista) {
 			System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");

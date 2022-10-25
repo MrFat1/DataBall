@@ -8,8 +8,8 @@ import icai.dtc.isw.domain.Jugador;
 
 public class CustomerControler {
 
-	public void getCustomers(ArrayList<Jugador> lista) {
-		CustomerDAO.getJugadores(lista);
+	public ArrayList<Jugador> getBusqueda(String busqueda, String opcion) {
+		return CustomerDAO.getJugadores(opcion, busqueda);
 	}
 	public Jugador getJugador(String Nombre) {return(CustomerDAO.getJugador(Nombre));}
 	public boolean confirmCustomer(String usuario,String password) {

@@ -24,7 +24,7 @@ public class CustomerDAO {
 			 ResultSet rs = pst.executeQuery()){
 			while(rs.next())
 			{
-				String user= rs.getString(1).trim(); //La mierda del \n al final
+				String user= rs.getString(3).trim(); //La mierda del \n al final
 				String pas= rs.getString(2).trim();
 				if (user.equals(usuario) && pas.equals(password)) {
 					return true;
@@ -131,7 +131,7 @@ public class CustomerDAO {
 
 			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario) VALUES ('" + correo + "','" + password1 + "','" + nombre1 + "');");) {
 
-				resultado = "bien";
+				resultado="bien";
 
 			}
 			catch (SQLException ex) {

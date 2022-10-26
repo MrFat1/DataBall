@@ -119,6 +119,7 @@ public class LogIn extends JFrame {
 		if((boolean) session.get("confirmation")) {
 			JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
 			new JVentana();
+			this.dispose();
 		}
 		else
 			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);

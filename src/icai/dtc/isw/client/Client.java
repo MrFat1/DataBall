@@ -66,16 +66,13 @@ public class Client {
 
 			case "/getAccountConfirmation":
 				session=mensajeVuelta.getSession();
-				boolean b = (boolean) session.get("confirmation");
-				if(b)
-				{
-
+				//String b = (String) session.get("confirmation");
+				/*f(b)
 					System.out.println("Your account has been confirmed");
-				}
 				else{
 
 					System.out.println("Wrong account or wrong password");
-				}
+				}*/
 				break;
 
 			case "/getRegisterInfo":
@@ -83,10 +80,10 @@ public class Client {
 				System.out.println(session);
 
 			default:
-				Logger.getRootLogger().info("Option not found");
-				System.out.println("\nError a la vuelta");
+				/*Logger.getRootLogger().info("Option not found");
+				System.out.println("\nError a la vueltaaa");
 				break;
-		
+		*/
 		}
 		//System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
 		return session;

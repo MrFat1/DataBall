@@ -48,11 +48,10 @@ public class SocketServer extends Thread {
 		    		customerControler=new CustomerControler();
 					String opcion= (String) session.get("opcion");
 					String busqueda= (String) session.get("jugador");
-		    		ArrayList<Jugador> lista=new ArrayList<Jugador>();
-		    		lista=customerControler.getBusqueda(busqueda, opcion);
+		    		ArrayList<Jugador> lista=customerControler.getBusqueda(busqueda, opcion);
 		    		mensajeOut.setContext("/getCustomersResponse");
 		    		//HashMap<String,Object> session=new HashMap<String, Object>();
-		    		session.put("Customers",lista);
+		    		session.put("jugadores",lista);
 		    		mensajeOut.setSession(session);
 		    		objectOutputStream.writeObject(mensajeOut);		    		
 		    		break;

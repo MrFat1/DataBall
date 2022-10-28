@@ -80,7 +80,19 @@ public class JVentana extends JFrame {
         //Añado el listener al botón
 
         btnBusqueda.addActionListener(actionEvent -> {
-            Buscar(txtJugador.getText(), (String) opciones.getSelectedItem());
+            ArrayList<Jugador> listaJugadores=Buscar(txtJugador.getText(), (String) opciones.getSelectedItem());
+            StringBuilder sb=new StringBuilder();
+            if (listaJugadores.size()==0)
+            {
+                txtResultado.setText("No se han encontrado resultados");
+            }
+            else
+            {
+                for(Jugador j: listaJugadores)
+                {
+                    sb.append(j.MostrarJugador());}
+                txtResultado.setText(sb.toString());
+            }
         });
         pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.X_AXIS));
         this.add(pnlSur,BorderLayout.SOUTH);
@@ -98,7 +110,7 @@ public class JVentana extends JFrame {
         session.put("jugador",Busqueda);
         session.put("opcion",opcion);
         session=cliente.sentMessage(context,session);
-        ArrayList<Jugador> lista= (ArrayList<Jugador>) session.get("Jugadores");
+        ArrayList<Jugador> lista=cliente.jugadores;
         return lista;
     }
 
@@ -109,7 +121,8 @@ public class JVentana extends JFrame {
         session.put("Nombre", nombre);
         session=cliente.sentMessage(context,session);
         Jugador j=(Jugador) session.get("Jugador");
-        return j.getNombre();
+
+        return j.MostrarJugador();
     }
 
 }

@@ -46,7 +46,7 @@ public class CustomerDAO {
 	public static ArrayList<Jugador> getJugadores(String opcion, String busqueda) {
 		ArrayList<Jugador> lista= new ArrayList<>();
 		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE "+opcion+"='"+busqueda+"'");
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE "+opcion+" LIKE '%"+busqueda+"%'");
                 ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {

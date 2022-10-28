@@ -2,6 +2,7 @@ package icai.dtc.isw.ui;
 
 import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.ventanas.PruebaVideo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -40,8 +40,10 @@ public class CustomerDAO {
 	}
 
 	/**
-	 * Método para obtener una lista con todos los jugadores en la DB
-	 * @param lista
+	 * Para obtener información de un jugador dependiendo de la opción seleccionado
+	 * @param opcion Opción seleccionada
+	 * @param busqueda
+	 * @return
 	 */
 	public static ArrayList<Jugador> getJugadores(String opcion, String busqueda) {
 		ArrayList<Jugador> lista= new ArrayList<>();
@@ -140,4 +142,6 @@ public class CustomerDAO {
 		//}
 		return resultado;
 	}
+
+
 }

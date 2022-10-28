@@ -69,20 +69,18 @@ public class JVentana extends JFrame {
         pnlBusqueda.add(opciones);
         pnlBusqueda.add(btnBusqueda);
         //this.add(pnlCentro, BorderLayout.NORTH);
-        this.add(pnlBusqueda,BorderLayout.CENTER);
+        this.add(pnlBusqueda,BorderLayout.NORTH);
         //El Sur lo hago para recoger el resultado
         JPanel pnlSur = new JPanel();
         JLabel lblResultado = new JLabel("El resultado obtenido es: ", SwingConstants.CENTER);
-        JTextField txtResultado = new JTextField();
-        txtResultado.setBounds(new Rectangle(250,150,250,150));
-        txtResultado.setHorizontalAlignment(JTextField.LEFT);
+        JTextArea txtResultado = new JTextArea();
         pnlSur.add(lblResultado);
         pnlSur.add(txtResultado);
         //Añado el listener al botón
 
         btnBusqueda.addActionListener(actionEvent -> {
             ArrayList<Jugador> listaJugadores=Buscar(txtJugador.getText(), (String) opciones.getSelectedItem());
-            StringBuilder sb=new StringBuilder();
+            txtResultado.setText("");
             if (listaJugadores.size()==0)
             {
                 txtResultado.setText("No se han encontrado resultados");
@@ -91,12 +89,12 @@ public class JVentana extends JFrame {
             {
                 for(Jugador j: listaJugadores)
                 {
-                    sb.append(j.MostrarJugador());}
-                txtResultado.setText(sb.toString());
+                    txtResultado.setText(txtResultado.getText()+"\n"+j.MostrarJugador());
+                }
             }
         });
         pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.X_AXIS));
-        this.add(pnlSur,BorderLayout.SOUTH);
+        this.add(pnlSur,BorderLayout.CENTER);
 
         this.setSize(550,600);
         this.setResizable(false);

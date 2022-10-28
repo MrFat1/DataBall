@@ -1,0 +1,11 @@
+DEFINICIÓN CASOS DE USO DATABALL:
+
+El usuario no registrado podrá ver las estadísticas Solo de su equipo favorito.Además, podrá leer los mensajes del chat, pero no podrá comentar. Esos son nuestros cebos.
+
+Una vez que el usuario se haya registrado, podrá ver las estadísticas de cualquier equipoy jugador. Podrá comparar equipos y jugadores entre sí, y ver que jugadores están en auge (para que les ayude en su liga Fantasy). Podrá chatear y contestar a cualquier otro usuario, y tendrá acceso a ver cualquier partido de fútbol.
+
+Un periodista, además de tener todas funcionalidades de un usuario registrado, podrá destacar/fijar sus mensajes (en especial, aquellos que sean crónicas deportivas).
+
+Existirá también la figura del administrador. El administrador se encargará de actualizar las estadísticas después de cada partido y después de cada jornada. Además tendrá otras funciones como que se mantengan las formas respetuosas en el chat.
+
+Por último, el sistema será el encargado de enviar notificaciones a los usuarios y de proporcionar el video del partido.

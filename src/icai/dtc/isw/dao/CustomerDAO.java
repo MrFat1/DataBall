@@ -44,19 +44,43 @@ public class CustomerDAO {
 	 * @param lista
 	 */
 	public static ArrayList<Jugador> getJugadores(String opcion, String busqueda) {
-		ArrayList<Jugador> lista= new ArrayList<>();
-		Connection con=ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE "+opcion+" LIKE '%"+busqueda+"%'");
-                ResultSet rs = pst.executeQuery()) {
+		ArrayList<Jugador> lista = new ArrayList<>();
+		boolean number;
+		Connection con = ConnectionDAO.getInstance().getConnection();
+		try {
+			Integer.parseInt(busqueda);
+			number = true;
+		} catch (NumberFormatException error) {
+			number = false;
+			System.out.println("aaaaaaaaaa");
+		}
+		if (number ==false) {
+			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE " + opcion + " LIKE '%" + busqueda + "%'");
+				 ResultSet rs = pst.executeQuery()) {
 
-            while (rs.next()) {
-            	lista.add(new Jugador(rs.getString(1),rs.getString(2), rs.getString(3),rs.getInt(4),rs.getInt(5), rs.getInt(6),rs.getInt(7),rs.getInt(8) ));
-            }
+				while (rs.next()) {
+					lista.add(new Jugador(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+				}
 
-        } catch (SQLException ex) {
+			} catch (SQLException ex) {
 
-            System.out.println(ex.getMessage());
-        }
+				System.out.println(ex.getMessage());
+			}
+		}
+		if( number==true)
+		{
+			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE " + opcion + "='"+busqueda +"'");
+				 ResultSet rs = pst.executeQuery()) {
+
+				while (rs.next()) {
+					lista.add(new Jugador(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+				}
+
+			} catch (SQLException ex) {
+
+				System.out.println(ex.getMessage());
+			}
+		}
 		return lista;
 	}
 

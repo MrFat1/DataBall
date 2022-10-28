@@ -78,7 +78,7 @@ public class JVentana extends JFrame {
         //Añado el listener al botón
 
         btnBusqueda.addActionListener(actionEvent -> {
-            ArrayList<Jugador> listaJugadores=Buscar(txtJugador.getText(), (String) opciones.getSelectedItem());
+            ArrayList<Jugador> listaJugadores=Buscar(txtJugador.getText().trim(), (String) opciones.getSelectedItem());
             txtResultado.setText("");
             if (listaJugadores.size()==0)
             {

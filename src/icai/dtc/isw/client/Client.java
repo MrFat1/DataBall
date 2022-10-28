@@ -23,6 +23,7 @@ import javax.swing.*;
 public class Client {
 	private String host;
 	private int port;
+	public ArrayList<Jugador> jugadores;
 	final static Logger logger = Logger.getLogger(Client.class);
 	public Client(String host, int port) {
 		this.host=host;
@@ -53,10 +54,10 @@ public class Client {
 		//Usaremos este para mensajes debug (solo se verán en la consola)
 		switch (mensajeVuelta.getContext()) { //Esto ya es lo que hara a la vuelta
 			case "/getCustomersResponse":
-				ArrayList<Jugador> lista=(ArrayList<Jugador>)(mensajeVuelta.getSession().get("Customers"));
-				for (Jugador j : lista) {
+				jugadores=(ArrayList<Jugador>)(mensajeVuelta.getSession().get("jugadores"));
+				/*for (Jugador j : lista) {
 					System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
-				}
+				}*/
 				break;
 			case "/getCustomerResponse":
 				session=mensajeVuelta.getSession();

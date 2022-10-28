@@ -53,4 +53,9 @@ public class Jugador implements Serializable {
         return posicion;}
     public void setPosicion(String posicion) {
         this.posicion = posicion;}
+    public String MostrarJugador()
+    {
+        String s="Nombre:"+this.Nombre+" Equipo:"+this.Equipo;
+        return s;
+    }
 }

@@ -118,7 +118,7 @@ public class LogIn extends JFrame {
 		session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
 		if((boolean) session.get("confirmation")) {
 			JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-			new JVentana();
+			new Menu();
 			this.dispose();
 		}
 		else

@@ -1,11 +1,10 @@
-package icai.dtc.isw.ui;
+package icai.dtc.isw.domain;
+
+import icai.dtc.isw.ui.JVentana;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
-import static java.awt.Color.black;
-import static java.awt.Color.green;
 
 public class Menu extends JFrame {
     public static void main(String[] args) {

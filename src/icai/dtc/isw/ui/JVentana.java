@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JVentana extends JFrame {
-    public static void main(String[] args) {
-        new JVentana();
-    }
     private int id;
     public static JComboBox opciones;
     private String correo;
@@ -83,7 +80,7 @@ public class JVentana extends JFrame {
             txtResultado.setText("");
             if (listaJugadores.size()==0)
             {
-                txtResultado.setText("No se han encontrado resultados");
+                JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);
             }
             else
             {

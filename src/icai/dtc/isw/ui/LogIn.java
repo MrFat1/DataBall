@@ -1,6 +1,7 @@
 package icai.dtc.isw.ui;
 
 import icai.dtc.isw.client.Client;
+import icai.dtc.isw.domain.Menu;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -78,7 +79,6 @@ public class LogIn extends JFrame {
 			if(Pulsado==true)
 			{
 				Register(txtUser.getText(),txtCorreo.getText(),txtPassword.getText());
-
 			}
 			else
 			{

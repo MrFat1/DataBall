@@ -5,7 +5,6 @@ import icai.dtc.isw.domain.Jugador;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class EstadisticasGlobal extends JFrame{

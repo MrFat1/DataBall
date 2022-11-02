@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Jugador;
 
 public class CustomerDAO {
@@ -167,5 +166,22 @@ public class CustomerDAO {
 		return resultado;
 	}
 
+	public static ArrayList<Jugador> getListaJugadores() {
+		ArrayList<Jugador> jugadores = new ArrayList<>();
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM jugadores");
+			 ResultSet rs = pst.executeQuery()){
+			while(rs.next())
+			{
+				jugadores.add(new Jugador(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+				}
+			}
 
+		catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+
+		return jugadores;
+	}
 }

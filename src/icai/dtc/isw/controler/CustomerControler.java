@@ -18,4 +18,8 @@ public class CustomerControler {
 	public String registerCustomer(String nombre1, String correo, String password1) {
 		return (CustomerDAO.register(nombre1, correo, password1));
 	}
+
+	public ArrayList<Jugador> getJugadores() {
+		return (CustomerDAO.getListaJugadores());
+	}
 }

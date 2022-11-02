@@ -73,23 +73,23 @@ public class LogIn extends JFrame {
 		this.add(fila4);
 		fila4.setVisible(false);
 
+		//Usamos el mismo boton 2 veces (pulsado)
 		JButton Register= new JButton("Registrarse");
 		Register.addActionListener(actionEvent->{
 
-			if(Pulsado==true)
+			if(Pulsado)
 			{
 				Register(txtUser.getText(),txtCorreo.getText(),txtPassword.getText());
 			}
 			else
 			{
+				//Muestra el label para introducir el correo y oculta el boton de login
 				Pulsado=true;
 				fila4.setVisible(true);
 				btnLogin.setVisible(false);
 			}
 		});
 
-
-		//
 		btnLogin = new JButton("Iniciar sesion");
 		//btnLogin.setBounds(200,100,100,50);
 		fila3.add(btnLogin);
@@ -98,7 +98,6 @@ public class LogIn extends JFrame {
 
 		pack();
 
-		//Botones
 		btnLogin.addActionListener(actionEvent -> {
 			recuperarInformacion(txtUser.getText(),txtPassword.getText());
 		});

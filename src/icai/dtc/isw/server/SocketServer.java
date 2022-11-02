@@ -60,7 +60,7 @@ public class SocketServer extends Thread {
 					customerControler=new CustomerControler();
 					Jugador jugador=customerControler.getJugador(nombre);
 					System.out.println("Nombre:"+jugador.getNombre());
-					mensajeOut.setContext("/getCustomerResponse");
+					mensajeOut.setContext("/getJugador");
 					session.put("Jugador",jugador);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
@@ -87,7 +87,14 @@ public class SocketServer extends Thread {
 					session.put("confirmation",resultadoRegister); //Esto devolverá el resultado con el tag "confirmation" al JRegister
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
-
+					break;
+				case "/getListaJugadores":
+					customerControler = new CustomerControler();
+					ArrayList<Jugador> jugadores = customerControler.getJugadores();
+					mensajeOut.setContext("/getJugadores");
+					session.put("ListaJugadores",jugadores);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
 					break;
 
 		    	default:

@@ -23,6 +23,7 @@ import javax.swing.*;
 public class Client {
 	private String host;
 	private int port;
+	public ArrayList<Jugador> jugadoresOpc;
 	public ArrayList<Jugador> jugadores;
 	final static Logger logger = Logger.getLogger(Client.class);
 	public Client(String host, int port) {
@@ -54,12 +55,10 @@ public class Client {
 		//Usaremos este para mensajes debug (solo se verán en la consola)
 		switch (mensajeVuelta.getContext()) { //Esto ya es lo que hara a la vuelta
 			case "/getCustomersResponse":
-				jugadores=(ArrayList<Jugador>)(mensajeVuelta.getSession().get("jugadores"));
-				/*for (Jugador j : lista) {
-					System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
-				}*/
+				jugadoresOpc = (ArrayList<Jugador>)(mensajeVuelta.getSession().get("jugadores"));
 				break;
-			case "/getCustomerResponse":
+
+			case "/getJugador":
 				session=mensajeVuelta.getSession();
 				Jugador j =(Jugador) (session.get("Jugador"));
 				System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
@@ -67,24 +66,21 @@ public class Client {
 
 			case "/getAccountConfirmation":
 				session=mensajeVuelta.getSession();
-				//String b = (String) session.get("confirmation");
-				/*f(b)
-					System.out.println("Your account has been confirmed");
-				else{
-
-					System.out.println("Wrong account or wrong password");
-				}*/
 				break;
 
 			case "/getRegisterInfo":
 				session = mensajeVuelta.getSession();
 				System.out.println(session);
 
+			case "/getJugadores":
+				session = mensajeVuelta.getSession();
+				jugadores = (ArrayList<Jugador>) session.get("ListaJugadores");
+
 			default:
-				/*Logger.getRootLogger().info("Option not found");
-				System.out.println("\nError a la vueltaaa");
+				Logger.getRootLogger().info("Option not found");
+				System.out.println("\nError a la vuelta");
 				break;
-		*/
+
 		}
 		//System.out.println("3.- En Main.- El valor devuelto es: "+((String)mensajeVuelta.getSession().get("Nombre")));
 		return session;

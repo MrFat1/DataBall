@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JVentana extends JFrame {
-    private int id;
+
     public static JComboBox opciones;
-    private String correo;
 
     public JVentana() {
         super("INGENIERÍA DEL SOFTWARE");
@@ -49,7 +48,6 @@ public class JVentana extends JFrame {
         opciones.addItem("tarjetas rojas");
 
         JLabel lblId = new JLabel("Introduzca su correo", SwingConstants.CENTER);
-        JButton btnInformacion = new JButton("Recibir información");
         //JTextField txtCorreo = new JTextField();
         //JTextField txtPassword = new JTextField();
         //txtCorreo.setBounds(new Rectangle(250,150,250,150));
@@ -65,18 +63,18 @@ public class JVentana extends JFrame {
         pnlBusqueda.add(txtJugador);
         pnlBusqueda.add(opciones);
         pnlBusqueda.add(btnBusqueda);
-        //this.add(pnlCentro, BorderLayout.NORTH);
         this.add(pnlBusqueda,BorderLayout.NORTH);
+
         //El Sur lo hago para recoger el resultado
         JPanel pnlSur = new JPanel();
         JLabel lblResultado = new JLabel("El resultado obtenido es: ", SwingConstants.CENTER);
         JTextArea txtResultado = new JTextArea();
         pnlSur.add(lblResultado);
         pnlSur.add(txtResultado);
-        //Añado el listener al botón
 
         btnBusqueda.addActionListener(actionEvent -> {
-            ArrayList<Jugador> listaJugadores=Buscar(txtJugador.getText().trim(), (String) opciones.getSelectedItem());
+            //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
+            ArrayList<Jugador> listaJugadores = Buscar(txtJugador.getText().trim(), (String) opciones.getSelectedItem());
             txtResultado.setText("");
             if (listaJugadores.size()==0)
             {
@@ -105,8 +103,8 @@ public class JVentana extends JFrame {
         String context="/getbusqueda";
         session.put("jugador",Busqueda);
         session.put("opcion",opcion);
-        session=cliente.sentMessage(context,session);
-        ArrayList<Jugador> lista=cliente.jugadores;
+        cliente.sentMessage(context,session);
+        ArrayList<Jugador> lista=cliente.jugadoresOpc;
         return lista;
     }
 

@@ -76,9 +76,9 @@ public class Client {
 				session = mensajeVuelta.getSession();
 				System.out.println(session);
 
-			case "/getJugadores":
+			case "/getjugadores":
 				session = mensajeVuelta.getSession();
-				jugadores = (ArrayList<Jugador>) session.get("ListaJugadores");
+				jugadores = (ArrayList<Jugador>) session.get("listajugadores");
 
 			default:
 				Logger.getRootLogger().info("Option not found");

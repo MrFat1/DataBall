@@ -56,6 +56,9 @@ public class SocketServer extends Thread {
 					customerControler=new CustomerControler();
 					mensajeOut.setContext("/getEquipos");
 					session.put("equipo",customerControler.ordenarEquipos((String) session.get("opcion")));
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 		    	case "/getbusqueda":
 		    		customerControler=new CustomerControler();
 					String opcion= (String) session.get("opcion");
@@ -72,9 +75,9 @@ public class SocketServer extends Thread {
 					String opcion_e= (String) session.get("opcion");
 					String equipo= (String) session.get("equipo");
 					ArrayList<Equipo> listaEquipo=customerControler.getEquipos(equipo,opcion_e);
+					session.put("equipos",listaEquipo);
 					mensajeOut.setContext("/getequipos");
 					//HashMap<String,Object> session=new HashMap<String, Object>();
-					session.put("equipos",listaEquipo);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
@@ -111,11 +114,11 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
-				case "/getListaJugadores":
+				case "/getlistajugadores":
 					customerControler = new CustomerControler();
 					ArrayList<Jugador> jugadores = customerControler.getJugadores();
-					mensajeOut.setContext("/getJugadores");
-					session.put("ListaJugadores",jugadores);
+					mensajeOut.setContext("/getjugadores");
+					session.put("listajugadores",jugadores);
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;

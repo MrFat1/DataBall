@@ -4,6 +4,7 @@ import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 import icai.dtc.isw.domain.Menu;
+import icai.dtc.isw.ventanas.EstadisticasGlobal;
 import icai.dtc.isw.ventanas.PruebaVideo;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,7 @@ public class JVentana extends JPanel {
 
     private static JComboBox opciones_j;
     private static JComboBox opciones_e;
+    private static ArrayList<Jugador> jugadores=new ArrayList<Jugador>();
     //Defino al crear la ventana para que clase va a buscar
     public String busqueda;
 
@@ -38,7 +40,9 @@ public class JVentana extends JPanel {
         JLabel lblTitulo = new JLabel("Prueba COMUNICACIÓN", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
         this.add(lblTitulo);
-
+        JPanel pnlCentral=new JPanel();
+        new EstadisticasGlobal(jugadores);
+        //this.add(pnlCentral,BorderLayout.SOUTH);
         //Pongo el panel central el botón
 
         JLabel lblCorreo = new JLabel("Introduzca un jugador");
@@ -76,71 +80,63 @@ public class JVentana extends JPanel {
             opciones_e.addItem("estadio");
             pnlBusqueda.add(opciones_e);
         }
-
         JButton btnOrdenar=new JButton("Ordenar");
         pnlBusqueda.add(btnBusqueda);
         pnlBusqueda.add(btnOrdenar);
         this.add(pnlBusqueda);
-
         //El Sur lo hago para recoger el resultado
-        JPanel pnlSur = new JPanel();
-        JLabel lblResultado = new JLabel("El resultado obtenido es: ", SwingConstants.CENTER);
-        JTextArea txtResultado = new JTextArea();
+
         //Scrollbar barra =new Scrollbar();
         //pnlSur.add(barra,BorderLayout.EAST);
         //txtResultado.setMaximumSize(new Dimension(100,100));
-        pnlSur.add(lblResultado);
-        pnlSur.add(txtResultado);
+        //btnBusqueda.addActionListener(CardLayout());
         btnOrdenar.addActionListener(actionEvent ->{
             if(busqueda=="jugadores")
             {
                 ArrayList<Jugador> listaJugadores =OrdenarJugadores((String) opciones_j.getSelectedItem());
-                txtResultado.setText("");
+                //txtResultado.setText("");
                 for(Jugador j: listaJugadores)
                 {
-                    txtResultado.setText(txtResultado.getText()+"\n"+j.MostrarJugador());
+                    //txtResultado.setText(txtResultado.getText()+"\n"+j.MostrarJugador());
                 }
             }
             if(busqueda=="equipos")
             {
-                ArrayList<Equipo> listaEquipos = OrdenarEquipo((String) opciones_e.getSelectedItem());
-                txtResultado.setText("");
-                for(Equipo e: listaEquipos) {
+                //ArrayList<Equipo> listaEquipos = OrdenarEquipo((String) opciones_e.getSelectedItem());
+                //txtResultado.setText("");
+                /*for(Equipo e: listaEquipos) {
                     txtResultado.setText(txtResultado.getText()+"\n"+e.MostrarEquipo());}
-                }
-        });
-        pnlSur.setMaximumSize(new Dimension(100,100));
+                }*/
+        }});
+        //pnlSur.setMaximumSize(new Dimension(100,100));
         btnBusqueda.addActionListener(actionEvent -> {
             //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
             if(busqueda=="jugadores")
             {
-                ArrayList<Jugador> listaJugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
-                txtResultado.setText("");
-                if (listaJugadores.size()==0) {
-                JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);}
-                else {
-                    for(Jugador j: listaJugadores) {
-                        txtResultado.setText(txtResultado.getText()+"\n"+j.MostrarJugador());}
-                    }
+                jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
+
+
             }
             if(busqueda=="equipos")
             {
                 ArrayList<Equipo> listaEquipos = BuscarEquipo(txtJugador.getText().trim(), (String) this.opciones_e.getSelectedItem());
-                txtResultado.setText("");
+                //txtResultado.setText("");
                 if (listaEquipos.size()==0) {
                     JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);}
-                else {
+                /*else {
                     for(Equipo e: listaEquipos) {
                         txtResultado.setText(txtResultado.getText()+"\n"+e.MostrarEquipo());}
-                }
+                }*/
             }
+            //CardLayout. (pnlCentral);
         });
-        pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
-        pnlSur.setMaximumSize(new Dimension(200,200));
-        this.add(pnlSur,BorderLayout.SOUTH);
+        //pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
+        //pnlSur.setMaximumSize(new Dimension(200,200));
 
         this.setSize(550,600);
         this.setVisible(true);
+
+
     }
     public ArrayList<Jugador> BuscarJugador(String Busqueda, String opcion) {
         Client cliente=new Client();

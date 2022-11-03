@@ -1,8 +1,10 @@
 package icai.dtc.isw.domain;
 
 import icai.dtc.isw.ui.JVentana;
+import icai.dtc.isw.ventanas.EstadisticasGlobal;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,28 +12,51 @@ public class Menu extends JFrame {
     public static void main(String[] args) {
         new Menu();
     }
-    public static JTabbedPane pestañas;
+
+    //Identificadores de paneles
+    final static String EST = "Estadisticas";
+
+    JPanel pnlCentro;
+    EstadisticasGlobal estg = new EstadisticasGlobal();
+
     public Menu()
     {
         super("DataBall");
-        this.setFont(new Font("fondo",3,20));
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pnlCentro = new JPanel();
+        pnlCentro.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(pnlCentro);
+        pnlCentro.setLayout(new CardLayout(0, 0));
+
+        //Añadir las ventanas al contenedor
+        pnlCentro.add(estg,EST);
+
         this.setSize(400,500);
         this.setLocation(300,100);
-        pestañas=new JTabbedPane();
-        pestañas.addTab("Jugadores",new JVentana("jugadores"));
-        JLabel Busqueda= new JLabel("Buscar Jugadores");
-        JLabel Videos= new JLabel("Videos");
-        pestañas.addTab("Equipos",new JVentana("equipos"));
-        pestañas.add(Videos);
-        this.add(pestañas);
         this.setVisible(true);
 
+        /*JPanel pestañas=new JPanel();
+        pestañas.setLayout(new GridLayout(1,4));
+        JLabel Busqueda= new JLabel("Buscar Jugadores");
+        Busqueda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new JVentana();
+            }
+        });
+
+        JLabel Videos= new JLabel("Videos");
+        pestañas.add(Busqueda);
+        pestañas.add(Videos);
+        this.add(pestañas,BorderLayout.NORTH);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
-        });
+        });*/
 
     }
 

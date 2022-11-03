@@ -4,7 +4,11 @@ import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Menu;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class LogIn extends JFrame {
@@ -18,22 +22,30 @@ public class LogIn extends JFrame {
 	private static JTextField txtUser;
 	private static JTextField txtCorreo;
 	private boolean Pulsado=false;
-	public LogIn() 
+	private BufferedImage img;
+	public LogIn()
 	{
 
 		this.setVisible(true);
-		this.setSize(500,500); //cambiar el tamaño aqui.
-		this.setTitle("Log In");
-		this.setLocation(600,200);
+		this.setSize(500,600); //cambiar el tamaño aqui.
+		this.setTitle("Inicio de sesión");
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 
-		this.setLayout(new GridLayout(4,1));
+		JPanel arriba = new JPanel();
+		JPanel abajo = new JPanel();
+
+		this.add(abajo, BorderLayout.SOUTH);
+		this.add(arriba, BorderLayout.NORTH);
+
+		JLabel img = new JLabel();
+		img.setIcon(new ImageIcon("resources/databall.png"));
+		arriba.add(img);
+
+		abajo.setLayout(new GridLayout(4,1));
 
 		JPanel fila1 = new JPanel();
-
-		FlowLayout layout1 = new FlowLayout();
-		fila1.setLayout(layout1);
 
 		JLabel lblUsuario = new JLabel("Introduzca nombre de usuario: ");
 		fila1.add(lblUsuario);
@@ -41,12 +53,9 @@ public class LogIn extends JFrame {
 		txtUser = new JTextField(15);
 		fila1.add(txtUser);
 
-		this.add(fila1);
+		abajo.add(fila1);
 
 		JPanel fila2 = new JPanel();
-
-		FlowLayout layout2 = new FlowLayout();
-		fila2.setLayout(layout2);
 
 		JLabel lblPassword = new JLabel("Introduzca contraseña: ");
 		fila2.add(lblPassword);
@@ -54,23 +63,18 @@ public class LogIn extends JFrame {
 		txtPassword = new JPasswordField(10);
 		fila2.add(txtPassword);
 
-		this.add(fila2);
+		abajo.add(fila2);
 
 		JPanel fila3 = new JPanel();
 
-		FlowLayout layout3 = new FlowLayout();
-		fila3.setLayout(layout3);
-
 		//Juan
 		fila4 =new JPanel();
-		FlowLayout layout4= new FlowLayout();
-		fila4.setLayout(layout4);
 
 		JLabel lblCorreo=new JLabel("Introducza su correo");
 		txtCorreo= new JTextField(10);
 		fila4.add(lblCorreo);
 		fila4.add(txtCorreo);
-		this.add(fila4);
+		abajo.add(fila4);
 		fila4.setVisible(false);
 
 		//Usamos el mismo boton 2 veces (pulsado)
@@ -87,6 +91,7 @@ public class LogIn extends JFrame {
 				Pulsado=true;
 				fila4.setVisible(true);
 				btnLogin.setVisible(false);
+				this.setTitle("Registro");
 			}
 		});
 
@@ -94,9 +99,10 @@ public class LogIn extends JFrame {
 		//btnLogin.setBounds(200,100,100,50);
 		fila3.add(btnLogin);
 		fila3.add(Register);
-		this.add(fila3);
 
-		pack();
+		abajo.add(fila3);
+
+		//pack();
 
 		btnLogin.addActionListener(actionEvent -> {
 			recuperarInformacion(txtUser.getText(),txtPassword.getText());

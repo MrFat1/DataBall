@@ -15,7 +15,7 @@ public class Menu extends JFrame {
     final static String EST = "Estadisticas";
 
     JPanel pnlCentro;
-    JugadoresToTable estg = new JugadoresToTable(null);
+    JugadoresToTable estg = new JugadoresToTable(null,pnlCentro);
 
     public Menu()
     {

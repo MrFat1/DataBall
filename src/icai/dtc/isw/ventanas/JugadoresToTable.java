@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class JugadoresToTable extends JPanel{
 
-    public JugadoresToTable(ArrayList<Jugador> jugadores){
+    public JugadoresToTable(ArrayList<Jugador> jugadores, JPanel panel){
 
         String[] columnas = {"Nombre","Posición","Equipo", "NumPartidos", "Goles", "Asistencias", "Amarillas", "Rojas"};
 
@@ -26,8 +26,7 @@ public class JugadoresToTable extends JPanel{
         tabla.setEnabled(false);
 
         JScrollPane sp = new JScrollPane(tabla);
-        this.add(sp);
-        this.setSize(300,200);
-        this.setVisible(true);
+        panel.add(sp);
+        panel.updateUI();
     }
 }

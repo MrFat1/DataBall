@@ -4,7 +4,8 @@ import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 import icai.dtc.isw.domain.Menu;
-import icai.dtc.isw.ventanas.EstadisticasGlobal;
+
+import icai.dtc.isw.ventanas.JugadoresToTable;
 import icai.dtc.isw.ventanas.PruebaVideo;
 
 import javax.imageio.ImageIO;
@@ -104,7 +105,7 @@ public class JVentana extends JPanel {
             if(busqueda=="jugadores")
             {
                 jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
-                new EstadisticasGlobal(jugadores,pnlBusqueda);
+                new JugadoresToTable(jugadores,pnlBusqueda);
 
             }
             if(busqueda=="equipos")

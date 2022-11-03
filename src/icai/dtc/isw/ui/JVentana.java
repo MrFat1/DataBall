@@ -1,7 +1,9 @@
 package icai.dtc.isw.ui;
 
 import icai.dtc.isw.client.Client;
+import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Menu;
 import icai.dtc.isw.ventanas.PruebaVideo;
 
 import javax.imageio.ImageIO;
@@ -12,93 +14,144 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class JVentana extends JFrame {
+public class JVentana extends JPanel {
 
-    public static JComboBox opciones;
+    private static JComboBox opciones_j;
+    private static JComboBox opciones_e;
+    //Defino al crear la ventana para que clase va a buscar
+    public String busqueda;
 
-    public JVentana() {
-        super("INGENIERÍA DEL SOFTWARE");
+    public static void main(String[] args) {
+        JFrame jframe= new JFrame();
+        JTabbedPane pestañas=new JTabbedPane();
+        pestañas.addTab("Buscador",new JVentana("jugadores"));
+        pestañas.addTab("Equipos", new JVentana("equipos"));
+        jframe.add(pestañas);
+        jframe.setSize(400,400);
+        jframe.setVisible(true);
+        jframe.add(new Scrollbar());
+    }
+    public JVentana(String busqueda) {
+        this.busqueda=busqueda;
         this.setLayout(new BorderLayout());
         //Pongo un panel arriba con el título
-        JPanel pnlNorte = new JPanel();
         JLabel lblTitulo = new JLabel("Prueba COMUNICACIÓN", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
-        pnlNorte.add(lblTitulo);
-        this.add(pnlNorte, BorderLayout.NORTH);
+        this.add(lblTitulo);
 
         //Pongo el panel central el botón
-        JPanel pnlCentro = new JPanel();
-        JPanel pnlCorreo = new JPanel();
+
         JLabel lblCorreo = new JLabel("Introduzca un jugador");
         JButton btnBusqueda= new JButton("Buscar");
         JTextField txtJugador = new JTextField(20);
         txtJugador.setBounds(new Rectangle(200,350,250,100));
         txtJugador.setHorizontalAlignment(JTextField.LEFT);
-        pnlCorreo.add(lblCorreo);
-        pnlCorreo.add(txtJugador);
+        this.add(lblCorreo);
+        this.add(txtJugador);
         //pnlCorreo.add(btnCorreo);
-        opciones= new JComboBox();
-        opciones.addItem("nombre");
-        opciones.addItem("posicion");
-        opciones.addItem("equipo");
-        opciones.addItem("goles");
-        opciones.addItem("asistencias");
-        opciones.addItem("partidos jugados");
-        opciones.addItem("tarjetas amarillas");
-        opciones.addItem("tarjetas rojas");
-
-        JLabel lblId = new JLabel("Introduzca su correo", SwingConstants.CENTER);
-        //JTextField txtCorreo = new JTextField();
-        //JTextField txtPassword = new JTextField();
-        //txtCorreo.setBounds(new Rectangle(250,150,250,150));
-        //txtCorreo.setHorizontalAlignment(JTextField.LEFT);
-        pnlCentro.add(lblId);
-        //pnlCentro.add(txtCorreo);
-        //pnlCentro.add(txtPassword);
-        //pnlCentro.add(opciones);
-
-        //pnlCentro.add(btnInformacion);
-        //pnlCentro.setLayout(new BoxLayout(pnlCentro, BoxLayout.	X_AXIS));
         JPanel pnlBusqueda= new JPanel();
         pnlBusqueda.add(txtJugador);
-        pnlBusqueda.add(opciones);
+        if(busqueda=="jugadores")
+        {
+            opciones_j= new JComboBox();
+            opciones_j.addItem("nombre");
+            opciones_j.addItem("posicion");
+            opciones_j.addItem("equipo");
+            opciones_j.addItem("goles");
+            opciones_j.addItem("asistencias");
+            opciones_j.addItem("partidos jugados");
+            opciones_j.addItem("tarjetas amarillas");
+            opciones_j.addItem("tarjetas rojas");
+            pnlBusqueda.add(opciones_j);
+        }
+        if(busqueda=="equipos")
+        {
+            opciones_e= new JComboBox();
+            opciones_e.addItem("nombre");
+            opciones_e.addItem("entrenador");
+            opciones_e.addItem("presidente");
+            opciones_e.addItem("posicion");
+            opciones_e.addItem("capacidad");
+            opciones_e.addItem("masasalarial");
+            opciones_e.addItem("estadio");
+            pnlBusqueda.add(opciones_e);
+        }
+
+        JButton btnOrdenar=new JButton("Ordenar");
         pnlBusqueda.add(btnBusqueda);
-        this.add(pnlBusqueda,BorderLayout.NORTH);
+        pnlBusqueda.add(btnOrdenar);
+        this.add(pnlBusqueda);
 
         //El Sur lo hago para recoger el resultado
         JPanel pnlSur = new JPanel();
         JLabel lblResultado = new JLabel("El resultado obtenido es: ", SwingConstants.CENTER);
         JTextArea txtResultado = new JTextArea();
+        //Scrollbar barra =new Scrollbar();
+        //pnlSur.add(barra,BorderLayout.EAST);
+        //txtResultado.setMaximumSize(new Dimension(100,100));
         pnlSur.add(lblResultado);
         pnlSur.add(txtResultado);
-
-        btnBusqueda.addActionListener(actionEvent -> {
-            //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
-            ArrayList<Jugador> listaJugadores = Buscar(txtJugador.getText().trim(), (String) opciones.getSelectedItem());
-            txtResultado.setText("");
-            if (listaJugadores.size()==0)
+        btnOrdenar.addActionListener(actionEvent ->{
+            if(busqueda=="jugadores")
             {
-                JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);
-            }
-            else
-            {
+                ArrayList<Jugador> listaJugadores =OrdenarJugadores((String) opciones_j.getSelectedItem());
+                txtResultado.setText("");
                 for(Jugador j: listaJugadores)
                 {
                     txtResultado.setText(txtResultado.getText()+"\n"+j.MostrarJugador());
                 }
             }
+            if(busqueda=="equipos")
+            {
+                ArrayList<Equipo> listaEquipos = OrdenarEquipo((String) opciones_e.getSelectedItem());
+                txtResultado.setText("");
+                for(Equipo e: listaEquipos) {
+                    txtResultado.setText(txtResultado.getText()+"\n"+e.MostrarEquipo());}
+                }
         });
-        pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.X_AXIS));
-        this.add(pnlSur,BorderLayout.CENTER);
+        pnlSur.setMaximumSize(new Dimension(100,100));
+        btnBusqueda.addActionListener(actionEvent -> {
+            //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
+            if(busqueda=="jugadores")
+            {
+                ArrayList<Jugador> listaJugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
+                txtResultado.setText("");
+                if (listaJugadores.size()==0) {
+                JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);}
+                else {
+                    for(Jugador j: listaJugadores) {
+                        txtResultado.setText(txtResultado.getText()+"\n"+j.MostrarJugador());}
+                    }
+            }
+            if(busqueda=="equipos")
+            {
+                ArrayList<Equipo> listaEquipos = BuscarEquipo(txtJugador.getText().trim(), (String) this.opciones_e.getSelectedItem());
+                txtResultado.setText("");
+                if (listaEquipos.size()==0) {
+                    JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);}
+                else {
+                    for(Equipo e: listaEquipos) {
+                        txtResultado.setText(txtResultado.getText()+"\n"+e.MostrarEquipo());}
+                }
+            }
+        });
+        pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
+        pnlSur.setMaximumSize(new Dimension(200,200));
+        this.add(pnlSur,BorderLayout.SOUTH);
 
         this.setSize(550,600);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-    public ArrayList<Jugador> Buscar(String Busqueda, String opcion) {
+    public ArrayList<Jugador> BuscarJugador(String Busqueda, String opcion) {
         Client cliente=new Client();
+        if(opcion=="tarjetas amarillas")
+        {
+            opcion="tamarillas";
+        }
+        if(opcion=="tarjetas rojas")
+        {
+            opcion="trojas";
+        }
         HashMap<String,Object> session=new HashMap<>();
         String context="/getbusqueda";
         session.put("jugador",Busqueda);
@@ -107,7 +160,37 @@ public class JVentana extends JFrame {
         ArrayList<Jugador> lista=cliente.jugadoresOpc;
         return lista;
     }
-
+    public ArrayList<Jugador> OrdenarJugadores(String opcion)
+    {
+        Client cliente= new Client();
+        HashMap<String,Object> session=new HashMap<>();
+        String context="/ordenarJugadores";
+        session.put("opcion",opcion);
+        cliente.sentMessage(context,session);
+        ArrayList<Jugador> lista=cliente.jugadoresOpc;
+        return lista;
+    }
+    public ArrayList<Equipo> BuscarEquipo(String busqueda,String opcion)
+    {
+        Client cliente=new Client();
+        HashMap<String,Object> session=new HashMap<>();
+        String context="/getequipo";
+        session.put("equipo",busqueda);
+        session.put("opcion",opcion);
+        cliente.sentMessage(context,session);
+        ArrayList<Equipo> lista=cliente.equipos;
+        return lista;
+    }
+    public ArrayList<Equipo> OrdenarEquipo(String opcion)
+    {
+        Client cliente= new Client();
+        HashMap<String,Object> session=new HashMap<>();
+        String context="/ordenarEquipos";
+        session.put("opcion",opcion);
+        cliente.sentMessage(context,session);
+        ArrayList<Equipo> lista=cliente.equipos;
+        return lista;
+    }
     public String Jugador(String nombre) {
         Client cliente=new Client();
         HashMap<String,Object> session=new HashMap<>();

@@ -4,12 +4,23 @@ import java.util.ArrayList;
 
 import icai.dtc.isw.dao.CustomerDAO;
 import icai.dtc.isw.domain.Customer;
+import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 
 public class CustomerControler {
 
 	public ArrayList<Jugador> getBusqueda(String busqueda, String opcion) {
 		return CustomerDAO.getJugadores(opcion, busqueda);
+	}
+	public ArrayList<Jugador> ordenarJugadores(String opcion){
+		return CustomerDAO.ordenarJugadores(opcion);
+	}
+	public ArrayList<Equipo> ordenarEquipos(String opcion)
+	{
+		return CustomerDAO.ordenarEquipos(opcion);
+	}
+	public ArrayList<Equipo> getEquipos(String busqueda, String opcion){
+		return CustomerDAO.getEquipos(opcion, busqueda);
 	}
 	public Jugador getJugador(String Nombre) {return(CustomerDAO.getJugador(Nombre));}
 	public boolean confirmCustomer(String usuario,String password) {

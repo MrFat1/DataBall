@@ -10,27 +10,22 @@ public class Menu extends JFrame {
     public static void main(String[] args) {
         new Menu();
     }
+    public static JTabbedPane pestañas;
     public Menu()
     {
         super("DataBall");
         this.setFont(new Font("fondo",3,20));
         this.setSize(400,500);
         this.setLocation(300,100);
-        JPanel pestañas=new JPanel();
-        pestañas.setLayout(new GridLayout(1,4));
+        pestañas=new JTabbedPane();
+        pestañas.addTab("Jugadores",new JVentana("jugadores"));
         JLabel Busqueda= new JLabel("Buscar Jugadores");
-        Busqueda.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                new JVentana();
-            }
-        });
         JLabel Videos= new JLabel("Videos");
-        pestañas.add(Busqueda);
+        pestañas.addTab("Equipos",new JVentana("equipos"));
         pestañas.add(Videos);
-        this.add(pestañas,BorderLayout.NORTH);
+        this.add(pestañas);
         this.setVisible(true);
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import icai.dtc.isw.configuration.PropertiesISW;
 import icai.dtc.isw.controler.CustomerControler;
 import icai.dtc.isw.domain.Customer;
+import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 import icai.dtc.isw.message.Message;
 
@@ -44,6 +45,17 @@ public class SocketServer extends Thread {
 			HashMap<String,Object> session=mensajeIn.getSession();
 			CustomerControler customerControler;
 		    switch (mensajeIn.getContext()) {
+				case "/ordenarJugadores":
+					customerControler=new CustomerControler();
+					mensajeOut.setContext("/getCustomersResponse");
+					session.put("jugadores",customerControler.ordenarJugadores((String) session.get("opcion")));
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+				case "/ordenarEquipos":
+					customerControler=new CustomerControler();
+					mensajeOut.setContext("/getEquipos");
+					session.put("equipo",customerControler.ordenarEquipos((String) session.get("opcion")));
 		    	case "/getbusqueda":
 		    		customerControler=new CustomerControler();
 					String opcion= (String) session.get("opcion");
@@ -53,8 +65,19 @@ public class SocketServer extends Thread {
 		    		//HashMap<String,Object> session=new HashMap<String, Object>();
 		    		session.put("jugadores",lista);
 		    		mensajeOut.setSession(session);
-		    		objectOutputStream.writeObject(mensajeOut);		    		
+		    		objectOutputStream.writeObject(mensajeOut);
 		    		break;
+				case "/getequipo":
+					customerControler=new CustomerControler();
+					String opcion_e= (String) session.get("opcion");
+					String equipo= (String) session.get("equipo");
+					ArrayList<Equipo> listaEquipo=customerControler.getEquipos(equipo,opcion_e);
+					mensajeOut.setContext("/getequipos");
+					//HashMap<String,Object> session=new HashMap<String, Object>();
+					session.put("equipos",listaEquipo);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 				case "/getJugador":
 					String nombre= (String) session.get("Nombre");
 					customerControler=new CustomerControler();

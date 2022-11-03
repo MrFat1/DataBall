@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 import icai.dtc.isw.ui.LogIn;
 import org.apache.log4j.Logger;
@@ -25,6 +26,7 @@ public class Client {
 	private int port;
 	public ArrayList<Jugador> jugadoresOpc;
 	public ArrayList<Jugador> jugadores;
+	public ArrayList<Equipo> equipos;
 	final static Logger logger = Logger.getLogger(Client.class);
 	public Client(String host, int port) {
 		this.host=host;
@@ -57,7 +59,9 @@ public class Client {
 			case "/getCustomersResponse":
 				jugadoresOpc = (ArrayList<Jugador>)(mensajeVuelta.getSession().get("jugadores"));
 				break;
-
+			case "/getequipos":
+				equipos = (ArrayList<Equipo>)(mensajeVuelta.getSession().get("equipos"));
+				break;
 			case "/getJugador":
 				session=mensajeVuelta.getSession();
 				Jugador j =(Jugador) (session.get("Jugador"));

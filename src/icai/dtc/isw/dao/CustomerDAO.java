@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 
 public class CustomerDAO {
@@ -37,6 +38,48 @@ public class CustomerDAO {
 		}
 		return confirmacion;
 	}
+	public static ArrayList<Equipo> getEquipos(String opcion, String busqueda) {
+		ArrayList<Equipo> lista = new ArrayList<>();
+		boolean number;
+		System.out.println("aaaaaaa");
+		int busquedaNumber=0;
+		Connection con = ConnectionDAO.getInstance().getConnection();
+		try {
+			busquedaNumber=Integer.parseInt(busqueda);
+			number = true;
+		} catch (NumberFormatException error) {
+			number = false;
+		}
+		if (number ==false) {
+			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM equipos WHERE " + opcion + " LIKE '%" + busqueda + "%'");
+				 ResultSet rs = pst.executeQuery()) {
+
+				while (rs.next()) {
+					lista.add(new Equipo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
+				}
+
+			} catch (SQLException ex) {
+
+				System.out.println(ex.getMessage());
+			}
+		}
+		if( number==true)
+		{
+
+			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM equipos WHERE "+opcion+" ="+busquedaNumber);
+				 ResultSet rs = pst.executeQuery()) {
+
+				while (rs.next()) {
+					lista.add(new Equipo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
+				}
+
+			} catch (SQLException ex) {
+
+				System.out.println(ex.getMessage());
+			}
+		}
+		return lista;
+	}
 
 	/**
 	 * Para obtener información de un jugador dependiendo de la opción seleccionado
@@ -47,13 +90,13 @@ public class CustomerDAO {
 	public static ArrayList<Jugador> getJugadores(String opcion, String busqueda) {
 		ArrayList<Jugador> lista = new ArrayList<>();
 		boolean number;
+		int busquedaNumber=0;
 		Connection con = ConnectionDAO.getInstance().getConnection();
 		try {
-			Integer.parseInt(busqueda);
+			busquedaNumber=Integer.parseInt(busqueda);
 			number = true;
 		} catch (NumberFormatException error) {
 			number = false;
-			System.out.println("aaaaaaaaaa");
 		}
 		if (number ==false) {
 			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE " + opcion + " LIKE '%" + busqueda + "%'");
@@ -70,7 +113,8 @@ public class CustomerDAO {
 		}
 		if( number==true)
 		{
-			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE " + opcion + "='"+busqueda +"'");
+
+			try (PreparedStatement pst = con.prepareStatement("SELECT * FROM Jugadores WHERE "+opcion+" ="+busquedaNumber);
 				 ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
@@ -84,7 +128,41 @@ public class CustomerDAO {
 		}
 		return lista;
 	}
+	public static ArrayList<Equipo> ordenarEquipos(String opcion)
+	{
+		ArrayList<Equipo> lista = new ArrayList<>();
+		Connection con = ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("ORDER BY " + opcion+" ASC");
+			 ResultSet rs = pst.executeQuery()) {
 
+			while (rs.next()) {
+				lista.add(new Equipo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
+			}
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return lista;
+	}
+	public static ArrayList<Jugador> ordenarJugadores(String opcion)
+	{
+		ArrayList<Jugador> lista = new ArrayList<>();
+		Connection con = ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM jugadores" +"\n"+"ORDER BY " + opcion+" ASC");
+			 ResultSet rs = pst.executeQuery()) {
+
+			while (rs.next()) {
+				lista.add(new Jugador(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
+			}
+
+		} catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return lista;
+
+	}
 	/**
 	 * Método para obtener un jugador específico
 	 * @param Nombre Busca por nombre

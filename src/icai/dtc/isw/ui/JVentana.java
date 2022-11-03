@@ -3,15 +3,10 @@ package icai.dtc.isw.ui;
 import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
-import icai.dtc.isw.domain.Menu;
-import icai.dtc.isw.ventanas.EstadisticasGlobal;
-import icai.dtc.isw.ventanas.PruebaVideo;
+import icai.dtc.isw.ventanas.JugadoresToTable;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,7 +36,7 @@ public class JVentana extends JPanel {
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
         this.add(lblTitulo);
         JPanel pnlCentral=new JPanel();
-        new EstadisticasGlobal(jugadores);
+        new JugadoresToTable(jugadores);
         //this.add(pnlCentral,BorderLayout.SOUTH);
         //Pongo el panel central el botón
 

@@ -1,12 +1,10 @@
 package icai.dtc.isw.domain;
 
-import icai.dtc.isw.ui.JVentana;
-import icai.dtc.isw.ventanas.EstadisticasGlobal;
+import icai.dtc.isw.ventanas.JugadoresToTable;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Menu extends JFrame {
     public static void main(String[] args) {
@@ -17,7 +15,7 @@ public class Menu extends JFrame {
     final static String EST = "Estadisticas";
 
     JPanel pnlCentro;
-    EstadisticasGlobal estg = new EstadisticasGlobal(null);
+    JugadoresToTable estg = new JugadoresToTable(null);
 
     public Menu()
     {

@@ -17,7 +17,7 @@ public class Menu extends JFrame {
     final static String EST = "Estadisticas";
 
     JPanel pnlCentro;
-    EstadisticasGlobal estg = new EstadisticasGlobal(null);
+    EstadisticasGlobal estg = new EstadisticasGlobal(null,pnlCentro);
 
     public Menu()
     {

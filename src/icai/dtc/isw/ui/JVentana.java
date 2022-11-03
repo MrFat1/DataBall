@@ -9,6 +9,7 @@ import icai.dtc.isw.ventanas.PruebaVideo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -29,32 +30,23 @@ public class JVentana extends JPanel {
         pestañas.addTab("Buscador",new JVentana("jugadores"));
         pestañas.addTab("Equipos", new JVentana("equipos"));
         jframe.add(pestañas);
-        jframe.setSize(400,400);
+        jframe.setSize(600,600);
         jframe.setVisible(true);
         jframe.add(new Scrollbar());
     }
     public JVentana(String busqueda) {
         this.busqueda=busqueda;
-        this.setLayout(new BorderLayout());
+
         //Pongo un panel arriba con el título
         JLabel lblTitulo = new JLabel("Prueba COMUNICACIÓN", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
-        this.add(lblTitulo);
-        JPanel pnlCentral=new JPanel();
-        new EstadisticasGlobal(jugadores);
-        //this.add(pnlCentral,BorderLayout.SOUTH);
-        //Pongo el panel central el botón
-
-        JLabel lblCorreo = new JLabel("Introduzca un jugador");
         JButton btnBusqueda= new JButton("Buscar");
         JTextField txtJugador = new JTextField(20);
         txtJugador.setBounds(new Rectangle(200,350,250,100));
         txtJugador.setHorizontalAlignment(JTextField.LEFT);
-        this.add(lblCorreo);
-        this.add(txtJugador);
-        //pnlCorreo.add(btnCorreo);
         JPanel pnlBusqueda= new JPanel();
         pnlBusqueda.add(txtJugador);
+        this.setSize(600,600);
         if(busqueda=="jugadores")
         {
             opciones_j= new JComboBox();
@@ -83,9 +75,7 @@ public class JVentana extends JPanel {
         JButton btnOrdenar=new JButton("Ordenar");
         pnlBusqueda.add(btnBusqueda);
         pnlBusqueda.add(btnOrdenar);
-        this.add(pnlBusqueda);
         //El Sur lo hago para recoger el resultado
-
         //Scrollbar barra =new Scrollbar();
         //pnlSur.add(barra,BorderLayout.EAST);
         //txtResultado.setMaximumSize(new Dimension(100,100));
@@ -114,7 +104,7 @@ public class JVentana extends JPanel {
             if(busqueda=="jugadores")
             {
                 jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
-
+                new EstadisticasGlobal(jugadores,pnlBusqueda);
 
             }
             if(busqueda=="equipos")
@@ -128,12 +118,15 @@ public class JVentana extends JPanel {
                         txtResultado.setText(txtResultado.getText()+"\n"+e.MostrarEquipo());}
                 }*/
             }
-            //CardLayout. (pnlCentral);
         });
         //pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
         //pnlSur.setMaximumSize(new Dimension(200,200));
 
+        //Parte grafica
+
+        this.add(pnlBusqueda,"Busqueda");
         this.setSize(550,600);
+
         this.setVisible(true);
 
 

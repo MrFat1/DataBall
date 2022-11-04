@@ -35,6 +35,7 @@ public class JVentana extends JPanel {
 
         //Pongo un panel arriba con el título
         JLabel lblTitulo = new JLabel("Prueba COMUNICACIÓN", SwingConstants.CENTER);
+        this.setLayout(new GridLayout(1,2));
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
         JButton btnJugadores= new JButton("Buscar Jugadores");
         JButton btnEquipos= new JButton("Buscar Equipos");

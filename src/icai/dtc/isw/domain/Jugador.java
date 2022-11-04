@@ -13,6 +13,17 @@ public class Jugador implements Serializable {
     private Integer TarjetasAmarillas;
     private Integer TarjetasRojas;
 
+    /**
+     * Constructor para crear un objeto Jugador
+     * @param Nombre
+     * @param posicion
+     * @param Equipo
+     * @param NumPartidos
+     * @param Goles
+     * @param a Asistencias
+     * @param Ta Tarjetas amarillas
+     * @param Tr Tarjetas rojas
+     */
     public Jugador(String Nombre,String posicion, String Equipo, Integer NumPartidos, Integer Goles, Integer a, Integer Ta, Integer Tr){
         this.setNombre(Nombre);
         this.setEquipo(Equipo);

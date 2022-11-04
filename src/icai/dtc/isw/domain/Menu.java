@@ -1,6 +1,6 @@
 package icai.dtc.isw.domain;
 
-import icai.dtc.isw.ventanas.JugadoresToTable;
+import icai.dtc.isw.util.JugadoresToTable;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,7 +15,6 @@ public class Menu extends JFrame {
     final static String EST = "Estadisticas";
 
     JPanel pnlCentro;
-    JugadoresToTable estg = new JugadoresToTable(null,pnlCentro);
 
     public Menu()
     {
@@ -28,7 +27,7 @@ public class Menu extends JFrame {
         pnlCentro.setLayout(new CardLayout(0, 0));
 
         //Añadir las ventanas al contenedor
-        pnlCentro.add(estg,EST);
+        //pnlCentro.add(estg,EST);
 
         this.setSize(400,500);
         this.setLocation(300,100);

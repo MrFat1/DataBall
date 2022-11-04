@@ -2,14 +2,15 @@ package icai.dtc.isw.ui;
 
 import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Menu;
+import icai.dtc.isw.util.CrearBoton;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 public class LogIn extends JFrame {
 	public static void main(String[] args) {
@@ -17,17 +18,22 @@ public class LogIn extends JFrame {
 	}
 	//Es necesario hacerlos static para que los action listeners puedan interactuar con ellos
 	private static JButton btnLogin;
+	private static JButton btnRegister;
 	private static JPanel fila4;
 	private static JTextField txtPassword;
 	private static JTextField txtUser;
 	private static JTextField txtCorreo;
 	private boolean Pulsado=false;
 	private BufferedImage img;
+
+	/**
+	 * Ejecuta la interfaz de login y registro de usuarios.
+	 */
 	public LogIn()
 	{
 
 		this.setVisible(true);
-		this.setSize(500,600); //cambiar el tamaño aqui.
+		this.setSize(500,500); //cambiar el tamaño aqui.
 		this.setTitle("Inicio de sesión");
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -40,10 +46,12 @@ public class LogIn extends JFrame {
 		this.add(arriba, BorderLayout.NORTH);
 
 		JLabel img = new JLabel();
-		img.setIcon(new ImageIcon("resources/databall.png"));
+		ImageIcon icono = new ImageIcon("resources/databall.png");
+		Image imgg = icono.getImage();
+		img.setIcon(new ImageIcon(imgg.getScaledInstance(465, 340, Image.SCALE_SMOOTH)));
 		arriba.add(img);
 
-		abajo.setLayout(new GridLayout(4,1));
+		abajo.setLayout(new GridLayout(5,1));
 
 		JPanel fila1 = new JPanel();
 
@@ -59,7 +67,6 @@ public class LogIn extends JFrame {
 
 		JLabel lblPassword = new JLabel("Introduzca contraseña: ");
 		fila2.add(lblPassword);
-
 		txtPassword = new JPasswordField(10);
 		fila2.add(txtPassword);
 
@@ -78,8 +85,8 @@ public class LogIn extends JFrame {
 		fila4.setVisible(false);
 
 		//Usamos el mismo boton 2 veces (pulsado)
-		JButton Register= new JButton("Registrarse");
-		Register.addActionListener(actionEvent->{
+		btnRegister = CrearBoton.normal("Registrarse");
+		btnRegister.addActionListener(actionEvent->{
 
 			if(Pulsado)
 			{
@@ -98,7 +105,7 @@ public class LogIn extends JFrame {
 		btnLogin = new JButton("Iniciar sesion");
 		//btnLogin.setBounds(200,100,100,50);
 		fila3.add(btnLogin);
-		fila3.add(Register);
+		fila3.add(btnRegister);
 
 		abajo.add(fila3);
 
@@ -107,6 +114,21 @@ public class LogIn extends JFrame {
 		btnLogin.addActionListener(actionEvent -> {
 			recuperarInformacion(txtUser.getText(),txtPassword.getText());
 		});
+
+		JPanel fila5 = new JPanel();
+		JLabel recupearPass = new JLabel("He olvidado mi contraseña");
+		recupearPass.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				System.out.println("boton de recuperar contraseña");
+				//vetana de recuperación de pass
+			}
+		});
+		fila5.add(recupearPass);
+		abajo.add(fila5);
+		abajo.updateUI();
+
 	}
 
 	/**

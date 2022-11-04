@@ -1,4 +1,4 @@
-package icai.dtc.isw.ventanas;
+package icai.dtc.isw.util;
 
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
@@ -9,18 +9,23 @@ import java.util.ArrayList;
 
 public class JugadoresToTable extends JPanel{
 
-    public JugadoresToTable(ArrayList<Jugador> jugadores, JPanel panel){
+    /**
+     * Método para añadir un array a una tabla en un JPanel específico
+     * @param array Array a añadir
+     * @param panel Panel donde poner la tabla
+     */
+    public static void convertir(ArrayList<Jugador> array, JPanel panel){
 
         String[] columnas = {"Nombre","Posición","Equipo", "NumPartidos", "Goles", "Asistencias", "Amarillas", "Rojas"};
 
-        String[][] data = new String[jugadores.size()][jugadores.size()];
+        String[][] data = new String[array.size()][array.size()];
 
         //Rellenamos el array data[][] con toda la info de cada jugador.
-        if(jugadores!=null)
+        if(array!=null)
         {
             int i;
-            for (i=0; i < jugadores.size(); i++) {
-                data[i] = jugadores.get(i).getStats().toArray(new String[0]);
+            for (i=0; i < array.size(); i++) {
+                data[i] = array.get(i).getStats().toArray(new String[0]);
             }
         }
 

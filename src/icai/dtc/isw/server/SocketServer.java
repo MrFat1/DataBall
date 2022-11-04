@@ -45,20 +45,6 @@ public class SocketServer extends Thread {
 			HashMap<String,Object> session=mensajeIn.getSession();
 			CustomerControler customerControler;
 		    switch (mensajeIn.getContext()) {
-				case "/ordenarJugadores":
-					customerControler=new CustomerControler();
-					mensajeOut.setContext("/getCustomersResponse");
-					session.put("jugadores",customerControler.ordenarJugadores((String) session.get("opcion")));
-					mensajeOut.setSession(session);
-					objectOutputStream.writeObject(mensajeOut);
-					break;
-				case "/ordenarEquipos":
-					customerControler=new CustomerControler();
-					mensajeOut.setContext("/getEquipos");
-					session.put("equipo",customerControler.ordenarEquipos((String) session.get("opcion")));
-					mensajeOut.setSession(session);
-					objectOutputStream.writeObject(mensajeOut);
-					break;
 		    	case "/getbusqueda":
 		    		customerControler=new CustomerControler();
 					String opcion= (String) session.get("opcion");
@@ -75,8 +61,8 @@ public class SocketServer extends Thread {
 					String opcion_e= (String) session.get("opcion");
 					String equipo= (String) session.get("equipo");
 					ArrayList<Equipo> listaEquipo=customerControler.getEquipos(equipo,opcion_e);
-					session.put("equipos",listaEquipo);
 					mensajeOut.setContext("/getequipos");
+					session.put("equipos",listaEquipo);
 					//HashMap<String,Object> session=new HashMap<String, Object>();
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);

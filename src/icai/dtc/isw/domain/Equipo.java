@@ -1,5 +1,7 @@
 package icai.dtc.isw.domain;
 
+import java.util.ArrayList;
+
 public class Equipo {
     public String getNombre() {
         return nombre;
@@ -84,4 +86,15 @@ public String MostrarEquipo()
 {
     return getNombre();
 }
+public ArrayList<String> getStats() {
+    ArrayList<String> stats = new ArrayList<>();
+    stats.add(nombre);
+    stats.add(entrenador);
+    stats.add(presidente);
+    stats.add(Integer.toString(posicion));
+    stats.add(Integer.toString(capacidad));
+    stats.add(Integer.toString(masaSalarial));
+    stats.add(estadio);
+    return stats;
+    }
 }

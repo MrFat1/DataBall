@@ -12,13 +12,6 @@ public class CustomerControler {
 	public ArrayList<Jugador> getBusqueda(String busqueda, String opcion) {
 		return CustomerDAO.getJugadores(opcion, busqueda);
 	}
-	public ArrayList<Jugador> ordenarJugadores(String opcion){
-		return CustomerDAO.ordenarJugadores(opcion);
-	}
-	public ArrayList<Equipo> ordenarEquipos(String opcion)
-	{
-		return CustomerDAO.ordenarEquipos(opcion);
-	}
 	public ArrayList<Equipo> getEquipos(String busqueda, String opcion){
 		return CustomerDAO.getEquipos(opcion, busqueda);
 	}

@@ -128,41 +128,6 @@ public class CustomerDAO {
 		}
 		return lista;
 	}
-	public static ArrayList<Equipo> ordenarEquipos(String opcion)
-	{
-		ArrayList<Equipo> lista = new ArrayList<>();
-		Connection con = ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("ORDER BY " + opcion+" ASC");
-			 ResultSet rs = pst.executeQuery()) {
-
-			while (rs.next()) {
-				lista.add(new Equipo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
-			}
-
-		} catch (SQLException ex) {
-
-			System.out.println(ex.getMessage());
-		}
-		return lista;
-	}
-	public static ArrayList<Jugador> ordenarJugadores(String opcion)
-	{
-		ArrayList<Jugador> lista = new ArrayList<>();
-		Connection con = ConnectionDAO.getInstance().getConnection();
-		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM jugadores" +"\n"+"ORDER BY " + opcion+" ASC");
-			 ResultSet rs = pst.executeQuery()) {
-
-			while (rs.next()) {
-				lista.add(new Jugador(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8)));
-			}
-
-		} catch (SQLException ex) {
-
-			System.out.println(ex.getMessage());
-		}
-		return lista;
-
-	}
 	/**
 	 * Método para obtener un jugador específico
 	 * @param Nombre Busca por nombre

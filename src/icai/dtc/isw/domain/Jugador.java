@@ -82,7 +82,6 @@ public class Jugador implements Serializable {
 
         return stats;
     }
-
     public String MostrarJugador()
     {
         return "Nombre: " + this.Nombre + " Equipo: "+ this.Equipo;

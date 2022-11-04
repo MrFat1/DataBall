@@ -3,17 +3,11 @@ package icai.dtc.isw.ui;
 import icai.dtc.isw.client.Client;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
-import icai.dtc.isw.domain.Menu;
+import icai.dtc.isw.util.JugadoresToTable;
 
-import icai.dtc.isw.ventanas.JugadoresToTable;
-import icai.dtc.isw.ventanas.PruebaVideo;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -83,7 +77,7 @@ public class JVentana extends JPanel {
         btnJugadores.addActionListener(actionEvent -> {
             //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
             jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
-            new JugadoresToTable(jugadores,pnlBusqueda);
+            JugadoresToTable.convertir(jugadores,pnlBusqueda);
         });
         //pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
         //pnlSur.setMaximumSize(new Dimension(200,200));
@@ -131,5 +125,4 @@ public class JVentana extends JPanel {
 
         return j.MostrarJugador();
     }
-
 }

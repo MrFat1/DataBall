@@ -30,7 +30,7 @@ public class Menu extends JFrame {
         Icon conoC = new ImageIcon((new ImageIcon(("resources/img-chat.png")).getImage()).getScaledInstance(20,20,Image.SCALE_SMOOTH));
         Icon conoV = new ImageIcon((new ImageIcon(("resources/img-video.png")).getImage()).getScaledInstance(30,20,Image.SCALE_SMOOTH));
         pestañas.addTab("Buscador",new JVentana());
-        pestañas.addTab("Videos",conoV,new JPanel());
+        pestañas.addTab("Videos",conoV,new PanelVideo());
         pestañas.addTab("Perfil",conoP,new JPanel());
         pestañas.addTab("Chat",conoC,new JPanel());
         this.addWindowListener(new WindowAdapter() {

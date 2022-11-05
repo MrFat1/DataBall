@@ -15,6 +15,7 @@ import icai.dtc.isw.controler.CustomerControler;
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Video;
 import icai.dtc.isw.message.Message;
 
 public class SocketServer extends Thread {
@@ -56,6 +57,14 @@ public class SocketServer extends Thread {
 		    		mensajeOut.setSession(session);
 		    		objectOutputStream.writeObject(mensajeOut);
 		    		break;
+				case "/getvideo":
+					customerControler=new CustomerControler();
+					ArrayList<Video> listavideos=customerControler.getVideos();
+					mensajeOut.setContext("/getVideos");
+					session.put("videos",listavideos);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 				case "/getequipo":
 					customerControler=new CustomerControler();
 					String opcion_e= (String) session.get("opcion");

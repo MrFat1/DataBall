@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Video;
 import icai.dtc.isw.ui.LogIn;
 import org.apache.log4j.Logger;
 
@@ -27,6 +28,7 @@ public class Client {
 	public ArrayList<Jugador> jugadoresOpc;
 	public ArrayList<Jugador> jugadores;
 	public ArrayList<Equipo> equipos;
+	public ArrayList<Video> videos;
 	final static Logger logger = Logger.getLogger(Client.class);
 	public Client(String host, int port) {
 		this.host=host;
@@ -71,7 +73,9 @@ public class Client {
 			case "/getAccountConfirmation":
 				session=mensajeVuelta.getSession();
 				break;
-
+			case "/getVideos":
+				videos=(ArrayList<Video>)(mensajeVuelta.getSession().get("videos"));
+				break;
 			case "/getRegisterInfo":
 				session = mensajeVuelta.getSession();
 				System.out.println(session);

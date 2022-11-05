@@ -21,8 +21,6 @@ public class Video implements Serializable {
     }
 
     private String nombre;
-
-
     public Video(URI url, String nombre) {
         this.url = url;
         this.nombre=nombre;

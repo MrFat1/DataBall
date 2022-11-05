@@ -6,11 +6,16 @@ import icai.dtc.isw.dao.CustomerDAO;
 import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Video;
 
 public class CustomerControler {
 
 	public ArrayList<Jugador> getBusqueda(String busqueda, String opcion) {
 		return CustomerDAO.getJugadores(opcion, busqueda);
+	}
+	public ArrayList<Video> getVideos()
+	{
+		return CustomerDAO.getVideos();
 	}
 	public ArrayList<Equipo> getEquipos(String busqueda, String opcion){
 		return CustomerDAO.getEquipos(opcion, busqueda);

@@ -1,5 +1,7 @@
 package icai.dtc.isw.dao;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Video;
 
 public class CustomerDAO {
 
@@ -259,5 +262,25 @@ public class CustomerDAO {
 		}
 		return confirmacion;
 
+	}
+
+	public static ArrayList<Video> getVideos() {
+		ArrayList<Video> videos= new ArrayList<>();
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM videos");
+			 ResultSet rs = pst.executeQuery()){
+			while(rs.next())
+			{
+				videos.add(new Video(new URI(rs.getString(1)), rs.getString(2)));
+			}
+		}
+
+		catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return videos;
 	}
 }

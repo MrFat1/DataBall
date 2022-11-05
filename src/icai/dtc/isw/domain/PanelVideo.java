@@ -1,19 +1,18 @@
 package icai.dtc.isw.domain;
 
 import icai.dtc.isw.client.Client;
-import icai.dtc.isw.ui.LogIn;
-import icai.dtc.isw.ventanas.YoutubePlay;
+import icai.dtc.isw.util.YoutubePlay;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Panel que muestra todos los videos disponibles
+ */
 public class PanelVideo extends JPanel {
-    /*public static void main(String[] args) {
-    }*/
+
     public PanelVideo()
     {
 
@@ -26,7 +25,7 @@ public class PanelVideo extends JPanel {
         ArrayList<Video> videos=cliente.videos;
         int i;
         for (i=0; i < videos.size(); i++) {
-            URI url =videos.get(i).getUrl();
+            URI url = videos.get(i).getUrl();
             JButton boton=new JButton(videos.get(i).getNombre());
             boton.addActionListener(actionEvent->{
                 YoutubePlay.open(url);

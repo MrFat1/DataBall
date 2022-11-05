@@ -31,8 +31,8 @@ public class Menu extends JFrame {
         Icon conoV = new ImageIcon((new ImageIcon(("resources/img-video.png")).getImage()).getScaledInstance(30,20,Image.SCALE_SMOOTH));
         pestañas.addTab("Buscador",new JVentana());
         pestañas.addTab("Videos",conoV,new PanelVideo());
-        pestañas.addTab("Perfil",conoP,new JPanel());
-        pestañas.addTab("Chat",conoC,new JPanel());
+        pestañas.addTab("Perfil",conoP,new JPanel()); //Proximamente
+        pestañas.addTab("Chat",conoC,new JPanel()); //Proximamente
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

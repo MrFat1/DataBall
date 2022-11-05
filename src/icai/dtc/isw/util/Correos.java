@@ -13,8 +13,8 @@ public class Correos {
     public static void nuevaContrasena(String destinatario, String nuevaPass){
 
         String host="mail.javatpoint.com";
-        final String user = "sonoojaiswal@javatpoint.com";
-        final String password = "xxxxx";
+        final String user = "databall@gmail.com"; //Hay que crear un correo
+        final String password = "databall";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", host);

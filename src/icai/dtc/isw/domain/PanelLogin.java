@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Panel con para inciar sesión.
+ */
 public class PanelLogin extends JPanel {
 
     private JButton btnLogin;

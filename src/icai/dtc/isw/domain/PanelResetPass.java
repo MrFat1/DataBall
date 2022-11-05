@@ -42,6 +42,10 @@ public class PanelResetPass extends JPanel {
 
     }
 
+    /**
+     * Método para enviar un correo con la contraseña de recuperación
+     * @param correo
+     */
     private void enviarCorreo(String correo) {
 
         Client cliente=new Client();

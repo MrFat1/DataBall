@@ -9,6 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Ventana para la búsqueda de jugadores y equipos
+ */
 public class JVentana extends JPanel {
 
     private JComboBox opciones_j;
@@ -87,6 +90,13 @@ public class JVentana extends JPanel {
 
 
     }
+
+    /**
+     * Busca a un jugador segun la opción elegida y el String introducido
+     * @param Busqueda
+     * @param opcion
+     * @return Devuelve un array que se introducira en una tabla con el método ToTable
+     */
     public ArrayList<Jugador> BuscarJugador(String Busqueda, String opcion) {
         Client cliente=new Client();
         if(opcion=="tarjetas amarillas")
@@ -101,6 +111,13 @@ public class JVentana extends JPanel {
         ArrayList<Jugador> lista=cliente.jugadoresOpc;
         return lista;
     }
+
+    /**
+     * Busca un equipo según la opción elegida y el String introducido
+     * @param busqueda
+     * @param opcion
+     * @return Devuelve un array que se introducira en una tabla con el método ToTable
+     */
     public ArrayList<Equipo> BuscarEquipo(String busqueda,String opcion)
     {
         Client cliente=new Client();
@@ -111,15 +128,5 @@ public class JVentana extends JPanel {
         cliente.sentMessage(context,session);
         ArrayList<Equipo> lista=cliente.equipos;
         return lista;
-    }
-    public String Jugador(String nombre) {
-        Client cliente=new Client();
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/getJugador";
-        session.put("Nombre", nombre);
-        session=cliente.sentMessage(context,session);
-        Jugador j=(Jugador) session.get("Jugador");
-
-        return j.MostrarJugador();
     }
 }

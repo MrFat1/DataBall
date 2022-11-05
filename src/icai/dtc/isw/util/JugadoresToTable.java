@@ -4,7 +4,6 @@ import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class JugadoresToTable extends JPanel{
@@ -12,7 +11,6 @@ public class JugadoresToTable extends JPanel{
     /**
      * Método para añadir un array a una tabla en un JPanel específico
      * @param array Array a añadir
-     * @param panel Panel donde poner la tabla
      */
     public static JScrollPane convertir(ArrayList<Jugador> array){
 
@@ -35,6 +33,12 @@ public class JugadoresToTable extends JPanel{
         JScrollPane sp = new JScrollPane(tabla);
         return sp;
     }
+
+    /**
+     * Array a tabla de equipos
+     * @param equipos
+     * @return
+     */
     public static JScrollPane EquiposToTable(ArrayList<Equipo> equipos)
     {
         String[] columnas = {"Nombre","Entrenador","Presidente", "Posicion", "Capacidad", "Masa salarial", "Estadio"};

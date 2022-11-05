@@ -7,8 +7,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * Clase para crear botones con un diseño específico
+ */
 public class CrearBoton {
 
+    /**
+     * Botones de la pantalla de login
+     * @param texto
+     * @return
+     */
     public static JButton normal(String texto) {
         JButton btn = new JButton(texto);
         btn.setForeground(Color.BLACK);

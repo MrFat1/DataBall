@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Menu principal del proyecto
+ */
 public class Menu extends JFrame {
     public static void main(String[] args) {
         new Menu("");
@@ -41,9 +44,7 @@ public class Menu extends JFrame {
 
         JTabbedPane pestañas=new JTabbedPane();
         this.add(pestañas);
-        ImageIcon icono= new ImageIcon("resources/icon-profile.png");
-        Image imgg = icono.getImage();
-       	Icon conoP =new ImageIcon(imgg.getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+       	Icon conoP = new ImageIcon((new ImageIcon(("resources/icon-profile.png")).getImage()).getScaledInstance(20,20,Image.SCALE_SMOOTH));
         Icon conoC = new ImageIcon((new ImageIcon(("resources/img.png")).getImage()).getScaledInstance(20,20,Image.SCALE_SMOOTH));
         Icon conoV = new ImageIcon((new ImageIcon(("resources/video.png")).getImage()).getScaledInstance(24,21,Image.SCALE_SMOOTH));
         pestañas.addTab("Buscador",new JVentana());

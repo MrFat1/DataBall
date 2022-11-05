@@ -38,10 +38,16 @@ public class CustomerDAO {
 		}
 		return confirmacion;
 	}
+
+	/**
+	 * Metodo para obtener los equipos segun la opción seleccionada
+	 * @param opcion
+	 * @param busqueda
+	 * @return
+	 */
 	public static ArrayList<Equipo> getEquipos(String opcion, String busqueda) {
 		ArrayList<Equipo> lista = new ArrayList<>();
 		boolean number;
-		System.out.println("aaaaaaa");
 		int busquedaNumber=0;
 		Connection con = ConnectionDAO.getInstance().getConnection();
 		try {
@@ -151,14 +157,14 @@ public class CustomerDAO {
 		return j;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ArrayList<Jugador> lista= new ArrayList<>();
 		//CustomerDAO.getJugadores(lista);
 		
 		 for (Jugador j : lista) {
 			System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
 		}
-	}
+	}*/
 
 	/**
 	 * Método para comprobar si existe un usuario y registrarlo
@@ -209,6 +215,10 @@ public class CustomerDAO {
 		return resultado;
 	}
 
+	/**
+	 * Devuelve una lista con todos los jugadores disponibles en la database
+	 * @return
+	 */
 	public static ArrayList<Jugador> getListaJugadores() {
 		ArrayList<Jugador> jugadores = new ArrayList<>();
 		Connection con=ConnectionDAO.getInstance().getConnection();

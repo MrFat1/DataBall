@@ -13,7 +13,6 @@ public class PanelRegister extends JPanel {
     public JButton atras;
 
     private JPasswordField txtPassword;
-    private JPasswordField txtRepeatPassword;
     private JTextField txtCorreo;
     private JTextField txtUser;
 
@@ -83,8 +82,7 @@ public class PanelRegister extends JPanel {
         session=cliente.sentMessage(context,session); //Devuelve un string con info sobre el registro
         if(session.get("confirmation").equals("bien")) { //if resultadoRegister equals ()
             JOptionPane.showMessageDialog(this, "Usuario registrado correctamente", "Bienvenido a Databall", JOptionPane.INFORMATION_MESSAGE);
-            txtPassword.setText("");
-            txtRepeatPassword.setText("");
+            txtPassword.setText("");;
             txtUser.setText("");
             txtCorreo.setText("");
         } else if (session.get("confirmation").equals("error-correo")) {

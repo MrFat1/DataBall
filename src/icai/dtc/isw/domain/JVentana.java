@@ -1,9 +1,7 @@
-package icai.dtc.isw.ui;
+package icai.dtc.isw.domain;
 
 import icai.dtc.isw.client.Client;
-import icai.dtc.isw.domain.Equipo;
-import icai.dtc.isw.domain.Jugador;
-import icai.dtc.isw.util.JugadoresToTable;
+import icai.dtc.isw.util.ToTable;
 
 
 import javax.swing.*;
@@ -13,19 +11,11 @@ import java.util.HashMap;
 
 public class JVentana extends JPanel {
 
-    private static JComboBox opciones_j;
-    private static JComboBox opciones_e;
-    private static ArrayList<Jugador> jugadores=new ArrayList<Jugador>();
-    private static JScrollPane tabla=new JScrollPane();
-    //Defino al crear la ventana para que clase va a buscar
-    public static void main(String[] args) {
-        JFrame jframe= new JFrame();
-        JTabbedPane pestañas=new JTabbedPane();
-        pestañas.addTab("Buscador",new JVentana());
-        jframe.add(pestañas);
-        jframe.setSize(1000,1000);
-        jframe.setVisible(true);
-    }
+    private JComboBox opciones_j;
+    private JComboBox opciones_e;
+    private ArrayList<Jugador> jugadores=new ArrayList<Jugador>();
+    private JScrollPane tabla=new JScrollPane();
+
     public JVentana() {
 
         //Pongo un panel arriba con el título
@@ -73,7 +63,7 @@ public class JVentana extends JPanel {
             {
                 pnlBusqueda .remove(tabla);
                 ArrayList<Equipo >equipos = BuscarEquipo(txtJugador.getText().trim(),(String) this.opciones_e.getSelectedItem());
-                tabla=JugadoresToTable.EquiposToTable(equipos);
+                tabla= ToTable.equipos(equipos);
                 pnlBusqueda.add(tabla);
                 this.updateUI();
             }
@@ -82,7 +72,7 @@ public class JVentana extends JPanel {
             //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
             pnlBusqueda.remove(tabla);
             jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
-            tabla=JugadoresToTable.convertir(jugadores);
+            tabla= ToTable.jugadores(jugadores);
             pnlBusqueda.add(tabla);
             this.updateUI();
         });

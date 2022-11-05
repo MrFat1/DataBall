@@ -1,6 +1,4 @@
-package icai.dtc.isw.ventanas;
-
-import icai.dtc.isw.ui.JVentana;
+package icai.dtc.isw.testings;
 
 import javax.media.CannotRealizeException;
 import javax.media.Manager;

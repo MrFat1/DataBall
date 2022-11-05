@@ -6,13 +6,13 @@ import icai.dtc.isw.domain.Jugador;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class JugadoresToTable extends JPanel{
+public class ToTable extends JPanel{
 
     /**
      * Método para añadir un array a una tabla en un JPanel específico
      * @param array Array a añadir
      */
-    public static JScrollPane convertir(ArrayList<Jugador> array){
+    public static JScrollPane jugadores(ArrayList<Jugador> array){
 
         String[] columnas = {"Nombre","Posición","Equipo", "NumPartidos", "Goles", "Asistencias", "Amarillas", "Rojas"};
 
@@ -39,7 +39,7 @@ public class JugadoresToTable extends JPanel{
      * @param equipos
      * @return
      */
-    public static JScrollPane EquiposToTable(ArrayList<Equipo> equipos)
+    public static JScrollPane equipos(ArrayList<Equipo> equipos)
     {
         String[] columnas = {"Nombre","Entrenador","Presidente", "Posicion", "Capacidad", "Masa salarial", "Estadio"};
         String[][] data = new String[equipos.size()][equipos.size()];

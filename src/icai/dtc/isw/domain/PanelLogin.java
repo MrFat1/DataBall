@@ -9,12 +9,9 @@ import java.util.HashMap;
 
 public class PanelLogin extends JPanel {
 
-    //Static para que puedan interactuar dentro del actionListener
-    private static JButton btnLogin;
-    private static JTextField txtPassword;
-    private static JTextField txtUser;
-    private static JTextField txtCorreo;
-    private boolean Pulsado=false;
+    private JButton btnLogin;
+    private JTextField txtPassword;
+    private JTextField txtUser;
 
     public JLabel recupearPass;
     public JFrame ventanaLogin;
@@ -80,7 +77,7 @@ public class PanelLogin extends JPanel {
         session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
         if((boolean) session.get("confirmation")) {
             JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-            new Menu(txtCorreo.getText().trim());
+            new Menu(txtUser.getText());
             ventanaLogin.dispose();
         }
         else

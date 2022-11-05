@@ -23,6 +23,10 @@ public class CustomerControler {
 		return (CustomerDAO.register(nombre1, correo, password1));
 	}
 
+	public boolean confirmCorreo(String correo) {
+		return (CustomerDAO.confirmCorreo(correo));
+	}
+
 	public ArrayList<Jugador> getJugadores() {
 		return (CustomerDAO.getListaJugadores());
 	}

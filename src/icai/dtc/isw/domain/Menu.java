@@ -1,13 +1,7 @@
 package icai.dtc.isw.domain;
 
-import icai.dtc.isw.ui.JVentana;
-import icai.dtc.isw.util.JugadoresToTable;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -19,24 +13,12 @@ public class Menu extends JFrame {
         new Menu("");
     }
 
-    //Identificadores de paneles
-    final static String EST = "Estadisticas";
-
-    JPanel pnlCentro;
-    String correo;
+    String user;
 
     public Menu(String usuario)
     {
         super("DataBall");
-        correo=usuario;
-        /*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pnlCentro = new JPanel();
-        pnlCentro.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(pnlCentro);
-        pnlCentro.setLayout(new CardLayout(0, 0));
-*/
-        //Añadir las ventanas al contenedor
-        //pnlCentro.add(estg,EST);
+        user = usuario;
 
         this.setSize(1000,650);
         this.setLocation(100,0);

@@ -108,6 +108,15 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+				case "/getCorreo":
+					customerControler=new CustomerControler();
+					String correoReset = (String) session.get("correo");
+					mensajeOut.setContext("/getCorreoConfirmation"); //Devolverá este tag al cliente para que decida que hacer con la info
+					boolean correoConfirm = customerControler.confirmCorreo(correoReset);
+					session.put("confirmation", correoConfirm); //True / false si el correo esta o no registrado en la db
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 
 		    	default:
 		    		System.out.println("\nError al encontrar un parámetro");

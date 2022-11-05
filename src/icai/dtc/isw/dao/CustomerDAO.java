@@ -237,4 +237,27 @@ public class CustomerDAO {
 
 		return jugadores;
 	}
+
+	public static boolean confirmCorreo(String correo) {
+
+		boolean confirmacion = false;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
+			 ResultSet rs = pst.executeQuery()){
+			while(rs.next())
+			{
+				String mail = rs.getString(1).trim();
+
+				if (mail.equals(correo)) {
+					return true;
+				}
+			}
+			return confirmacion;
+		}
+		catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return confirmacion;
+
+	}
 }

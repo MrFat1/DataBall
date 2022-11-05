@@ -34,7 +34,7 @@ public class YoutubePlay
         container.add(button);
         frame.setVisible(true);
     }
-    private static void open(URI uri)
+    public static void open(URI uri)
     {
         if (Desktop.isDesktopSupported())
         {

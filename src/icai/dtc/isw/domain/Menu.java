@@ -13,18 +13,19 @@ import java.awt.event.WindowEvent;
 
 public class Menu extends JFrame {
     public static void main(String[] args) {
-        new Menu();
+        new Menu("");
     }
 
     //Identificadores de paneles
     final static String EST = "Estadisticas";
 
     JPanel pnlCentro;
+    String correo;
 
-    public Menu()
+    public Menu(String usuario)
     {
         super("DataBall");
-
+        correo=usuario;
         /*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pnlCentro = new JPanel();
         pnlCentro.setBorder(new EmptyBorder(5, 5, 5, 5));

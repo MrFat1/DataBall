@@ -16,6 +16,7 @@ public class JVentana extends JPanel {
     private static JComboBox opciones_j;
     private static JComboBox opciones_e;
     private static ArrayList<Jugador> jugadores=new ArrayList<Jugador>();
+    private static JScrollPane tabla=new JScrollPane();
     //Defino al crear la ventana para que clase va a buscar
     public static void main(String[] args) {
         JFrame jframe= new JFrame();
@@ -70,14 +71,20 @@ public class JVentana extends JPanel {
             }
             else
             {
-               ArrayList<Equipo> equipos = BuscarEquipo(txtJugador.getText().trim(),(String) this.opciones_e.getSelectedItem());
-               JugadoresToTable.EquiposToTable(equipos,this);
+                pnlBusqueda .remove(tabla);
+                ArrayList<Equipo >equipos = BuscarEquipo(txtJugador.getText().trim(),(String) this.opciones_e.getSelectedItem());
+                tabla=JugadoresToTable.EquiposToTable(equipos);
+                pnlBusqueda.add(tabla);
+                this.updateUI();
             }
         });
         btnJugadores.addActionListener(actionEvent -> {
             //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
+            pnlBusqueda.remove(tabla);
             jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
-            JugadoresToTable.convertir(jugadores,pnlBusqueda);
+            tabla=JugadoresToTable.convertir(jugadores);
+            pnlBusqueda.add(tabla);
+            this.updateUI();
         });
         //pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
         //pnlSur.setMaximumSize(new Dimension(200,200));

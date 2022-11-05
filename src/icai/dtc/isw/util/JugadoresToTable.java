@@ -14,7 +14,7 @@ public class JugadoresToTable extends JPanel{
      * @param array Array a añadir
      * @param panel Panel donde poner la tabla
      */
-    public static void convertir(ArrayList<Jugador> array, JPanel panel){
+    public static JScrollPane convertir(ArrayList<Jugador> array){
 
         String[] columnas = {"Nombre","Posición","Equipo", "NumPartidos", "Goles", "Asistencias", "Amarillas", "Rojas"};
 
@@ -33,10 +33,9 @@ public class JugadoresToTable extends JPanel{
         tabla.setEnabled(false);
 
         JScrollPane sp = new JScrollPane(tabla);
-        panel.add(sp);
-        panel.updateUI();
+        return sp;
     }
-    public static void EquiposToTable(ArrayList<Equipo> equipos, JPanel panel)
+    public static JScrollPane EquiposToTable(ArrayList<Equipo> equipos)
     {
         String[] columnas = {"Nombre","Entrenador","Presidente", "Posicion", "Capacidad", "Masa salarial", "Estadio"};
         String[][] data = new String[equipos.size()][equipos.size()];
@@ -51,7 +50,6 @@ public class JugadoresToTable extends JPanel{
         JTable tabla = new JTable(data,columnas);
         tabla.setEnabled(false);
         JScrollPane sp = new JScrollPane(tabla);
-        panel.add(sp, BorderLayout.CENTER);
-        panel.updateUI();
+        return sp;
     }
 }

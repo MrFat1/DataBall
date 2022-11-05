@@ -21,7 +21,7 @@ public class PruebaVideo extends JFrame {
 
         setLayout(new BorderLayout());
 
-        String url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        String url = "resources/2022-03-15 14-25-51.mp4";
         URL url2 = new URL(url);
         Player mediaPlayer = Manager.createRealizedPlayer(url2);
 

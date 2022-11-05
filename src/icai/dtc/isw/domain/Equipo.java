@@ -1,8 +1,9 @@
 package icai.dtc.isw.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Equipo {
+public class Equipo implements Serializable {
     public String getNombre() {
         return nombre;
     }

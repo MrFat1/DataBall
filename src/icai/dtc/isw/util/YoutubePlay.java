@@ -4,6 +4,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * Clase para abrir enlaces de YouTube
+ */
 public class YoutubePlay
 {
     /**

@@ -6,6 +6,9 @@ import icai.dtc.isw.domain.Jugador;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * Clase para convertir arrays de datos en tablas
+ */
 public class ToTable extends JPanel{
 
     /**

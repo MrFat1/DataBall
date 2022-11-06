@@ -9,6 +9,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Panel para restear contraseñas basado en un correo electrónico
+ */
 public class PanelResetPass extends JPanel {
 
     public JButton btnRegresar;

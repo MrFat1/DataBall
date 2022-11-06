@@ -3,6 +3,9 @@ package icai.dtc.isw.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Contiene el constructor para crear el objeto Equipo
+ */
 public class Equipo implements Serializable {
 
     private String estadio;

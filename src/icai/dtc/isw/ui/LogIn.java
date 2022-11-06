@@ -10,7 +10,9 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 import javax.swing.*;
 
-
+/**
+ * Clase principal del proyecto. Ejecutar esta para iniciarlo
+ */
 public class LogIn extends JFrame {
 	public static void main(String[] args) {
 		new LogIn();

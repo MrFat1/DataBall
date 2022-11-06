@@ -58,7 +58,6 @@ public class JVentana extends JPanel {
         pnlBusqueda.add(btnEquipos);
         btnEquipos.addActionListener(actionEvent-> {
             ArrayList<Equipo> listaEquipos = BuscarEquipo(txtJugador.getText().trim(), (String) this.opciones_e.getSelectedItem());
-            //txtResultado.setText("");
             if (listaEquipos.size()==0) {
                 JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);
             }

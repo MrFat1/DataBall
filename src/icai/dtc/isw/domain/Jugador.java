@@ -3,6 +3,9 @@ package icai.dtc.isw.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Contiene el constructuor para crear el objeto Jugador
+ */
 public class Jugador implements Serializable {
     private String Nombre;
     private String posicion;

@@ -10,22 +10,30 @@ import java.util.Properties;
  */
 public class Correos {
 
-    public static void nuevaContrasena(String destinatario, String nuevaPass){
+    /**
+     * Envía un correo con una nueva contraseña
+     * @param destinatario Correo destino
+     * @param nuevaPass Contraseña nueva
+     * @return
+     */
+    public static boolean nuevaContrasena(String destinatario, String nuevaPass){
 
-        String host="mail.javatpoint.com";
-        final String user = "databall@gmail.com"; //Hay que crear un correo
-        final String password = "databall";
+        final String user = "databall.notificaciones@gmail.com"; //Hay que crear un correo
+        final String password = "gvjkcxgpmzpzgftq";
 
         Properties props = new Properties();
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.port", "587"); //TLS Port
+        props.put("mail.smtp.auth", "true"); //enable authentication
+        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
 
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
+        Authenticator auth = new Authenticator() {
+            //override the getPasswordAuthentication method
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, password);
             }
-        });
+        };
+        Session session = Session.getInstance(props, auth);
 
         try {
             MimeMessage message = new MimeMessage(session);
@@ -36,7 +44,14 @@ public class Correos {
 
             Transport.send(message);
 
-        } catch (MessagingException e) {e.printStackTrace();}
+            System.out.println("El correo se ha enviado correctamente");
+            return true;
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            System.out.println("Error al enviar el correo");
+            return false;
+        }
     }
 
 }

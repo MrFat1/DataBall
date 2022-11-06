@@ -9,16 +9,10 @@ import java.awt.event.WindowEvent;
  * Menu principal del proyecto
  */
 public class Menu extends JFrame {
-    public static void main(String[] args) {
-        new Menu("");
-    }
 
-    String user;
-
-    public Menu(String usuario)
+    public Menu()
     {
         super("DataBall");
-        user = usuario;
 
         this.setSize(1000,650);
         this.setLocation(100,0);

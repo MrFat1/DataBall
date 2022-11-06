@@ -126,7 +126,16 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
-
+				case "/cambiarPass":
+					customerControler=new CustomerControler();
+					String correoID = (String) session.get("correo");
+					String nuevaPas = (String) session.get("nuevaPas");
+					mensajeOut.setContext("/getCambiarPassConfirmation");
+					boolean cambiarPConfirm = customerControler.cambiarPass(correoID, nuevaPas);
+					session.put("confirmation", cambiarPConfirm); //True si todo ha ido bien, false si no
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 		    	default:
 		    		System.out.println("\nError al encontrar un parámetro");
 		    		break;

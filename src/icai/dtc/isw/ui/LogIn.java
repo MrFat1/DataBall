@@ -7,6 +7,7 @@ import icai.dtc.isw.domain.PanelResetPass;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 import javax.swing.*;
 
 
@@ -24,7 +25,7 @@ public class LogIn extends JFrame {
 
 	PanelResetPass pnlReset = new PanelResetPass();
 	PanelLogin pnlLogin = new PanelLogin(this);
-	PanelRegister pnlRegister = new PanelRegister();
+	PanelRegister pnlRegister = new PanelRegister(this);
 
 	/**
 	 * Ejecuta la interfaz de login y registro de usuarios.

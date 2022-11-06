@@ -159,15 +159,29 @@ public class CustomerDAO {
 		}
 		return j;
 	}
-	
-	/*public static void main(String[] args) {
-		ArrayList<Jugador> lista= new ArrayList<>();
-		//CustomerDAO.getJugadores(lista);
-		
-		 for (Jugador j : lista) {
-			System.out.println("Nombre: "+j.getNombre()+" Equipo : "+j.getEquipo()+ " Posicion :"+ j.getPosicion()+ " con un total de " +j.getNumPartidos() +" partidos jugados ");
+
+	/**
+	 * Método para actualizar la contraseña de un correo en la base de datos
+	 * @param correo
+	 * @param nuevaPas
+	 * @return
+	 */
+	public static boolean cambiarPass(String correo, String nuevaPas) {
+		boolean confirmacion = false;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst2 = con.prepareStatement("UPDATE usuarios SET password = " + nuevaPas + " WHERE correo = " + correo + ";")) {
+
+			confirmacion = true;
+
 		}
-	}*/
+		catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+			confirmacion = false;
+		}
+
+		return confirmacion;
+
+	}
 
 	/**
 	 * Método para comprobar si existe un usuario y registrarlo
@@ -178,7 +192,7 @@ public class CustomerDAO {
 	 */
 	public static String register(String nombre1, String correo, String password1) {
 		String resultado = "error"; //error default
-		Connection con=ConnectionDAO.getInstance().getConnection();
+		Connection con = ConnectionDAO.getInstance().getConnection();
 		//Primero comprobamos si el usuario esta ya registrado (comprueba correo y username)
 		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
 			 ResultSet rs = pst.executeQuery()) {
@@ -192,8 +206,7 @@ public class CustomerDAO {
 					break;
 				}
 			}
-		}
-		catch (SQLException ex) {
+		} catch (SQLException ex) {
 
 			System.out.println(ex.getMessage());
 		}
@@ -202,19 +215,19 @@ public class CustomerDAO {
 
 		//Requisito no funcional: Contraseña alfanumérica
 
-		/*if (!password1.matches("^[a-zA-Z0-9]*$")) {
+		if (!password1.matches("^[a-zA-Z0-9]*$")) {
 			resultado = "error-contraseña";
-		} else {*/
+		} else {
 
 			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario) VALUES ('" + correo + "','" + password1 + "','" + nombre1 + "');");) {
 
-				resultado="bien";
+				resultado = "bien";
 
-			}
-			catch (SQLException ex) {
+			} catch (SQLException ex) {
 				System.out.println(ex.getMessage());
 			}
-		//}
+		}
+
 		return resultado;
 	}
 

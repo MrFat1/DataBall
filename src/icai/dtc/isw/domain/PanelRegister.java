@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Panel con la lógica de registro
+ */
 public class PanelRegister extends JPanel {
 
     public JButton btnRegister;
@@ -15,8 +18,11 @@ public class PanelRegister extends JPanel {
     private JPasswordField txtPassword;
     private JTextField txtCorreo;
     private JTextField txtUser;
+    private JFrame login;
 
-    public PanelRegister() {
+    public PanelRegister(JFrame ventanaLogin) {
+
+        login = ventanaLogin;
 
         this.setLayout(new GridLayout(4,1));
 
@@ -59,8 +65,12 @@ public class PanelRegister extends JPanel {
         this.add(fila4);
 
         btnRegister.addActionListener(actionEvent->{
+            if (txtUser.getText().isEmpty() || txtPassword.getText().isEmpty() || txtCorreo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Porfavor, rellena todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                Register(txtUser.getText(),txtCorreo.getText(),txtPassword.getText());
+            }
 
-            Register(txtUser.getText(),txtCorreo.getText(),txtPassword.getText());
 
         });
 
@@ -85,12 +95,15 @@ public class PanelRegister extends JPanel {
             txtPassword.setText("");;
             txtUser.setText("");
             txtCorreo.setText("");
+            login.dispose();
+            new Menu();
         } else if (session.get("confirmation").equals("error-correo")) {
             JOptionPane.showMessageDialog(this, "Error: Este correo ya existe", "Error", JOptionPane.WARNING_MESSAGE);
         } else if (session.get("confirmation").equals("error-usuario")) {
             JOptionPane.showMessageDialog(this, "Error: Este usuario ya existe", "Error", JOptionPane.WARNING_MESSAGE);
         } else if (session.get("confirmation").equals("error-contraseña")) {
             JOptionPane.showMessageDialog(this, "Error: La contraseña debe ser alfanumérica", "Error", JOptionPane.WARNING_MESSAGE);
+            txtPassword.setText("");
         } else
             JOptionPane.showMessageDialog(this, "Error desconocido, contacta con un administrador.", "Error", JOptionPane.WARNING_MESSAGE);
 

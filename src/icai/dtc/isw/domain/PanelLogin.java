@@ -55,7 +55,12 @@ public class PanelLogin extends JPanel {
         this.add(fila3);
 
         btnLogin.addActionListener(actionEvent -> {
-            recuperarInformacion(txtUser.getText(),txtPassword.getText());
+            if (txtUser.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Porfavor, rellena todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                recuperarInformacion(txtUser.getText(),txtPassword.getText());
+            }
+
         });
 
         JPanel fila4 = new JPanel();
@@ -80,11 +85,11 @@ public class PanelLogin extends JPanel {
         session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
         if((boolean) session.get("confirmation")) {
             JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-            new Menu(txtUser.getText());
+            new Menu();
             ventanaLogin.dispose();
         }
         else
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
 }

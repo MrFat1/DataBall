@@ -28,6 +28,10 @@ public class CustomerControler {
 		return (CustomerDAO.register(nombre1, correo, password1));
 	}
 
+	public boolean cambiarPass(String correo, String nuevaPas) {
+		return (CustomerDAO.cambiarPass(correo, nuevaPas));
+	}
+
 	public boolean confirmCorreo(String correo) {
 		return (CustomerDAO.confirmCorreo(correo));
 	}

@@ -13,7 +13,7 @@ public class PropertiesISW extends Properties{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static PropertiesISW prop;
-	private static final String path="properties.xml";
+	private static final String path = "properties.xml";
 	
 	
 	private PropertiesISW() {

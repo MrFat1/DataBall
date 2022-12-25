@@ -1,4 +1,4 @@
-package icai.dtc.isw.domain;
+package icai.dtc.isw.domain.login;
 
 import icai.dtc.isw.client.Client;
 import icai.dtc.isw.util.Correos;
@@ -62,9 +62,9 @@ public class PanelResetPass extends JPanel {
         session.put("correo",  correo);
         session=cliente.sentMessage(context,session);
         if((boolean) session.get("confirmation")) {
-            JOptionPane.showMessageDialog(this, "Se ha enviado un correo con una nueva contraseña.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             String nuevaPass = new Random().ints(10, 97, 122).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
             if (Correos.nuevaContrasena(correo, nuevaPass)) {
+                JOptionPane.showMessageDialog(this, "Enviando correo, un momento...", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                 txtCorreo.setText("");
                 cambiarPass(correo, nuevaPass);
             } else {

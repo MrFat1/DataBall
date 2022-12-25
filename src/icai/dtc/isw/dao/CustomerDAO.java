@@ -7,9 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Usuario;
 import icai.dtc.isw.domain.Video;
 
 public class CustomerDAO {
@@ -183,6 +185,8 @@ public class CustomerDAO {
 
 	}
 
+	//Correo, password, usuario, imagen, rol
+
 	/**
 	 * Método para comprobar si existe un usuario y registrarlo
 	 * @param nombre1
@@ -219,7 +223,7 @@ public class CustomerDAO {
 			resultado = "error-contraseña";
 		} else {
 
-			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario) VALUES ('" + correo + "','" + password1 + "','" + nombre1 + "');");) {
+			try (PreparedStatement pst2 = con.prepareStatement("INSERT INTO usuarios (correo, password, usuario, imagen, rol) VALUES ('" + correo + "','" + password1 + "','" + nombre1 + "','" + null + "','usuario');");) {
 
 				resultado = "bien";
 
@@ -252,6 +256,25 @@ public class CustomerDAO {
 		}
 
 		return jugadores;
+	}
+
+	public static ArrayList<Usuario> getUsuarios() {
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
+			 ResultSet rs = pst.executeQuery()){
+			while(rs.next())
+			{
+				usuarios.add(new Usuario(rs.getString(3), rs.getString(1), rs.getString(2), rs.getString(5)));
+			}
+		}
+
+		catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+
+		return usuarios;
 	}
 
 	public static boolean confirmCorreo(String correo) {
@@ -295,5 +318,60 @@ public class CustomerDAO {
 			e.printStackTrace();
 		}
 		return videos;
+	}
+
+	public static Usuario getUserByName(String user) {
+
+		Usuario usuario = null;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		try (PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios");
+			 ResultSet rs = pst.executeQuery()){
+			//Comprobamos si el usuario esta en nuestra base de datos
+			while(rs.next())
+			{
+				if (user.equals(rs.getString(3).trim())) {
+					//Si esta, creamos un objeto Usuario con toda su info y lo traemos de vuelta
+					//Usuario(nombre, correo, pas, rol)
+					usuario = new Usuario(rs.getString(3).trim(), rs.getString(1).trim(), rs.getString(2).trim(), rs.getString(4).trim());
+					return usuario;
+				}
+			}
+			return usuario;
+		}
+		catch (SQLException ex) {
+
+			System.out.println(ex.getMessage());
+		}
+		return usuario;
+
+	}
+
+	public static boolean updateUser(HashMap<String, Object> session) {
+
+		boolean confirmacion = false;
+		Connection con=ConnectionDAO.getInstance().getConnection();
+		String nombreOriginal = null;
+
+		//Iteramos por las keys del hashmap y actualizamos cada key. (Las key deberian ser los nombres de las tablas y si existen en el hashmap es que han sido editadas por el usuario
+		for (String key : session.keySet()) {
+
+			//La primera key será el nombre original, el usuario que vamos a editar. (En caso de que se haya modificado el nombre)
+			if (key.equals("nombreOriginal")) {
+				nombreOriginal = (String) session.get("nombreOriginal");
+			} else {
+				try (PreparedStatement pst = con.prepareStatement("UPDATE usuarios SET " + key + " = " + session.get(key) + " WHERE usuario = " + nombreOriginal + ";")) {
+
+					confirmacion = true;
+
+				}
+				catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+					confirmacion = false;
+				}
+			}
+		}
+
+		return confirmacion;
+
 	}
 }

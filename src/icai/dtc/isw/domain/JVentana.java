@@ -1,6 +1,8 @@
 package icai.dtc.isw.domain;
 
 import icai.dtc.isw.client.Client;
+import icai.dtc.isw.util.CrearBoton;
+import icai.dtc.isw.util.DBUtils;
 import icai.dtc.isw.util.ToTable;
 
 
@@ -25,8 +27,8 @@ public class JVentana extends JPanel {
         JLabel lblTitulo = new JLabel("Prueba COMUNICACIÓN", SwingConstants.CENTER);
         this.setLayout(new GridLayout(1,2));
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
-        JButton btnJugadores= new JButton("Buscar Jugadores");
-        JButton btnEquipos= new JButton("Buscar Equipos");
+        JButton btnJugadores= CrearBoton.normal("Buscar jugadores");
+        JButton btnEquipos= CrearBoton.normal("Buscar equipos");
         JTextField txtJugador = new JTextField(20);
         txtJugador.setBounds(new Rectangle(200,350,250,100));
         txtJugador.setHorizontalAlignment(JTextField.LEFT);
@@ -57,14 +59,14 @@ public class JVentana extends JPanel {
         pnlBusqueda.add(btnJugadores);
         pnlBusqueda.add(btnEquipos);
         btnEquipos.addActionListener(actionEvent-> {
-            ArrayList<Equipo> listaEquipos = BuscarEquipo(txtJugador.getText().trim(), (String) this.opciones_e.getSelectedItem());
+            ArrayList<Equipo> listaEquipos = DBUtils.BuscarEquipo(txtJugador.getText().trim(), (String) this.opciones_e.getSelectedItem());
             if (listaEquipos.size()==0) {
                 JOptionPane.showMessageDialog(this, "No se han encontrado resultados", "Error", JOptionPane.WARNING_MESSAGE);
             }
             else
             {
                 pnlBusqueda .remove(tabla);
-                ArrayList<Equipo >equipos = BuscarEquipo(txtJugador.getText().trim(),(String) this.opciones_e.getSelectedItem());
+                ArrayList<Equipo >equipos = DBUtils.BuscarEquipo(txtJugador.getText().trim(),(String) this.opciones_e.getSelectedItem());
                 tabla= ToTable.equipos(equipos);
                 pnlBusqueda.add(tabla);
                 this.updateUI();
@@ -73,13 +75,11 @@ public class JVentana extends JPanel {
         btnJugadores.addActionListener(actionEvent -> {
             //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
             pnlBusqueda.remove(tabla);
-            jugadores = BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
+            jugadores = DBUtils.BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
             tabla= ToTable.jugadores(jugadores);
             pnlBusqueda.add(tabla);
             this.updateUI();
         });
-        //pnlSur.setLayout(new BoxLayout(pnlSur, BoxLayout.Y_AXIS));
-        //pnlSur.setMaximumSize(new Dimension(200,200));
 
         //Parte grafica
 
@@ -88,44 +88,5 @@ public class JVentana extends JPanel {
         this.setVisible(true);
 
 
-    }
-
-    /**
-     * Busca a un jugador segun la opción elegida y el String introducido
-     * @param Busqueda
-     * @param opcion
-     * @return Devuelve un array que se introducira en una tabla con el método ToTable
-     */
-    public ArrayList<Jugador> BuscarJugador(String Busqueda, String opcion) {
-        Client cliente=new Client();
-        if(opcion=="tarjetas amarillas")
-        {opcion="tamarillas";}
-        if(opcion=="tarjetas rojas")
-        {opcion="trojas";}
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/getbusqueda";
-        session.put("jugador",Busqueda);
-        session.put("opcion",opcion);
-        cliente.sentMessage(context,session);
-        ArrayList<Jugador> lista=cliente.jugadoresOpc;
-        return lista;
-    }
-
-    /**
-     * Busca un equipo según la opción elegida y el String introducido
-     * @param busqueda
-     * @param opcion
-     * @return Devuelve un array que se introducira en una tabla con el método ToTable
-     */
-    public ArrayList<Equipo> BuscarEquipo(String busqueda,String opcion)
-    {
-        Client cliente=new Client();
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/getequipo";
-        session.put("equipo",busqueda);
-        session.put("opcion",opcion);
-        cliente.sentMessage(context,session);
-        ArrayList<Equipo> lista=cliente.equipos;
-        return lista;
     }
 }

@@ -12,16 +12,15 @@ import java.util.HashMap;
 
 import icai.dtc.isw.configuration.PropertiesISW;
 import icai.dtc.isw.controler.CustomerControler;
-import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Usuario;
 import icai.dtc.isw.domain.Video;
 import icai.dtc.isw.message.Message;
 
 public class SocketServer extends Thread {
 	public static int port = 8081; //Valor por defecto
-	public HashMap<String,String>usuarios=new HashMap<>();
-	protected Socket socket;
+	public static Socket socket;
 
 	private SocketServer(Socket socket) {
 		this.socket = socket;
@@ -98,6 +97,15 @@ public class SocketServer extends Thread {
 					objectOutputStream.writeObject(mensajeOut);
 					break;
 
+				case "/getUser":
+					customerControler=new CustomerControler();
+					String usuario = (String) session.get("usuario");
+					mensajeOut.setContext("/getUser");
+					Usuario userReturn = customerControler.getUserByName(usuario);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
 				case "/registerUser":
 					customerControler=new CustomerControler();
 					String nombre1 = (String) session.get("nombre");
@@ -117,6 +125,14 @@ public class SocketServer extends Thread {
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;
+				case "/getUsuarios":
+					customerControler = new CustomerControler();
+					ArrayList<Usuario> usuarios = customerControler.getUsuarios();
+					mensajeOut.setContext("/getUsuarios");
+					session.put("usuarios",usuarios);
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
 				case "/getCorreo":
 					customerControler=new CustomerControler();
 					String correoReset = (String) session.get("correo");
@@ -133,6 +149,15 @@ public class SocketServer extends Thread {
 					mensajeOut.setContext("/getCambiarPassConfirmation");
 					boolean cambiarPConfirm = customerControler.cambiarPass(correoID, nuevaPas);
 					session.put("confirmation", cambiarPConfirm); //True si todo ha ido bien, false si no
+					mensajeOut.setSession(session);
+					objectOutputStream.writeObject(mensajeOut);
+					break;
+
+				case "/updateUser":
+					customerControler=new CustomerControler();
+					mensajeOut.setContext("/getUpdateConfirmation");
+					boolean updateUserConfirm = customerControler.updateUser(session); //Le mandamos la session misma con todos los prametros opcionales
+					session.put("confirmation", updateUserConfirm); //True si todo ha ido bien, false si no
 					mensajeOut.setSession(session);
 					objectOutputStream.writeObject(mensajeOut);
 					break;

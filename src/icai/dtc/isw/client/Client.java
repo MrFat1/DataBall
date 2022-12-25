@@ -12,15 +12,12 @@ import java.util.HashMap;
 
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Usuario;
 import icai.dtc.isw.domain.Video;
-import icai.dtc.isw.ui.LogIn;
 import org.apache.log4j.Logger;
 
 import icai.dtc.isw.configuration.PropertiesISW;
-import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.message.Message;
-
-import javax.swing.*;
 
 public class Client {
 	private String host;
@@ -28,6 +25,7 @@ public class Client {
 	public ArrayList<Jugador> jugadoresOpc;
 	public ArrayList<Jugador> jugadores;
 	public ArrayList<Equipo> equipos;
+	public ArrayList<Usuario> usuarios;
 	public ArrayList<Video> videos;
 	final static Logger logger = Logger.getLogger(Client.class);
 	public Client(String host, int port) {
@@ -83,6 +81,10 @@ public class Client {
 			case "/getjugadores":
 				session = mensajeVuelta.getSession();
 				jugadores = (ArrayList<Jugador>) session.get("listajugadores");
+
+			case "/getUsuarios":
+				session = mensajeVuelta.getSession();
+				usuarios = (ArrayList<Usuario>) session.get("usuarios");
 
 			default:
 				Logger.getRootLogger().info("Option not found");

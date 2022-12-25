@@ -1,13 +1,12 @@
 package icai.dtc.isw.ui;
 
-import icai.dtc.isw.domain.PanelLogin;
-import icai.dtc.isw.domain.PanelRegister;
-import icai.dtc.isw.domain.PanelResetPass;
+import icai.dtc.isw.domain.login.PanelLogin;
+import icai.dtc.isw.domain.login.PanelRegister;
+import icai.dtc.isw.domain.login.PanelResetPass;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 import javax.swing.*;
 
 /**

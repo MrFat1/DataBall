@@ -1,7 +1,11 @@
-package icai.dtc.isw.domain;
+package icai.dtc.isw.domain.login;
 
 import icai.dtc.isw.client.Client;
+import icai.dtc.isw.domain.Menu;
+import icai.dtc.isw.domain.Usuario;
+import icai.dtc.isw.domain.admin.PnlEditarUser;
 import icai.dtc.isw.util.CrearBoton;
+import icai.dtc.isw.util.DBUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +19,8 @@ public class PanelLogin extends JPanel {
     private JButton btnLogin;
     private JTextField txtPassword;
     private JTextField txtUser;
+
+    public Usuario user;
 
     public JLabel recupearPass;
     public JFrame ventanaLogin;
@@ -85,7 +91,8 @@ public class PanelLogin extends JPanel {
         session=cliente.sentMessage(context,session); //Cliente devolvera un hashmap con info que hayamos decidido traer de vuelta (en este caso un true o false)
         if((boolean) session.get("confirmation")) {
             JOptionPane.showMessageDialog(this, "Cuenta confirmada", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-            new Menu();
+            user = DBUtils.buscarUser(usuario);
+            new Menu(user);
             ventanaLogin.dispose();
         }
         else

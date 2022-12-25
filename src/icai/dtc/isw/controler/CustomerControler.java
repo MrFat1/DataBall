@@ -1,11 +1,13 @@
 package icai.dtc.isw.controler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.sun.mail.imap.protocol.UIDSet;
 import icai.dtc.isw.dao.CustomerDAO;
-import icai.dtc.isw.domain.Customer;
 import icai.dtc.isw.domain.Equipo;
 import icai.dtc.isw.domain.Jugador;
+import icai.dtc.isw.domain.Usuario;
 import icai.dtc.isw.domain.Video;
 
 public class CustomerControler {
@@ -38,5 +40,17 @@ public class CustomerControler {
 
 	public ArrayList<Jugador> getJugadores() {
 		return (CustomerDAO.getListaJugadores());
+	}
+
+	public ArrayList<Usuario> getUsuarios() {
+		return (CustomerDAO.getUsuarios());
+	}
+
+	public Usuario getUserByName(String user) {
+		return (CustomerDAO.getUserByName(user));
+	}
+
+	public boolean updateUser(HashMap<String, Object> session) {
+		return (CustomerDAO.updateUser(session));
 	}
 }

@@ -1,7 +1,10 @@
-package icai.dtc.isw.domain;
+package icai.dtc.isw.domain.login;
 
 import icai.dtc.isw.client.Client;
+import icai.dtc.isw.domain.Menu;
+import icai.dtc.isw.domain.Usuario;
 import icai.dtc.isw.util.CrearBoton;
+import icai.dtc.isw.util.DBUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,7 +99,8 @@ public class PanelRegister extends JPanel {
             txtUser.setText("");
             txtCorreo.setText("");
             login.dispose();
-            new Menu();
+            Usuario user = DBUtils.buscarUser(nombre);
+            new Menu(user);
         } else if (session.get("confirmation").equals("error-correo")) {
             JOptionPane.showMessageDialog(this, "Error: Este correo ya existe", "Error", JOptionPane.WARNING_MESSAGE);
         } else if (session.get("confirmation").equals("error-usuario")) {

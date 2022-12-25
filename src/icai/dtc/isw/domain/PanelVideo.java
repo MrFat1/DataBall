@@ -1,6 +1,7 @@
 package icai.dtc.isw.domain;
 
 import icai.dtc.isw.client.Client;
+import icai.dtc.isw.util.DBUtils;
 import icai.dtc.isw.util.YoutubePlay;
 
 import javax.swing.*;
@@ -16,13 +17,11 @@ public class PanelVideo extends JPanel {
     public PanelVideo()
     {
 
-        Client cliente= new Client();
-        HashMap<String,Object> session=new HashMap<>();
-        String context="/getvideo";
-        cliente.sentMessage(context,session);
         this.setSize(800,800);
         this.setVisible(true);
-        ArrayList<Video> videos=cliente.videos;
+
+        ArrayList<Video> videos = DBUtils.getVideos();
+
         int i;
         for (i=0; i < videos.size(); i++) {
             URI url = videos.get(i).getUrl();

@@ -8,12 +8,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Ventana emergente para editar un usuario específico
+ */
 public class vtnEditUser extends JFrame {
 
-    private Usuario usuario;
-    private JTextField txtNombre;
-    private JTextField txtCorreo;
-    private JComboBox cmbRol;
+    private Usuario usuario; //Usuario a editar
+    private JTextField txtNombre; //Nombre del usuario (para poder hacer una comparación mas adelante)
+    private JTextField txtCorreo; //Correo del usuario (para poder hacer una comparación mas adelante)
+    private JComboBox cmbRol; //Rol del usuario (para poder hacer una comparación mas adelante)
     private boolean pulsado;
 
     /**
@@ -58,6 +61,7 @@ public class vtnEditUser extends JFrame {
         JLabel lblMostrarPass = new JLabel("**********");
         JButton btnMostrarPass = CrearBoton.normal("Mostrar");
 
+        //Comprobación del estado del botón para la lógica de mostrar / ocultar la contraseña
         pulsado = false;
 
         btnMostrarPass.addActionListener(actionEvent -> {
@@ -83,6 +87,7 @@ public class vtnEditUser extends JFrame {
 
         JLabel lblRol = new JLabel("Rol: ");
 
+        //Para evitar andar haciendo comprobaciones en código, limitamos las opciones de selección a los roles existentes
         cmbRol = new JComboBox();
         cmbRol.addItem("usuario");
         cmbRol.addItem("admin");
@@ -100,6 +105,7 @@ public class vtnEditUser extends JFrame {
 
         JButton btnSave = CrearBoton.normal("Guardar");
 
+        //Guardado en la base de datos con comprobación
         btnSave.addActionListener(actionEvent -> {
 
             int opc = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres guardar la información actual de los campos de texto?",

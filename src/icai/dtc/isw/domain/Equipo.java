@@ -16,10 +16,6 @@ public class Equipo implements Serializable {
     private int capacidad;
     private int masaSalarial;
 
-    public String MostrarEquipo()
-    {
-        return getNombre();
-    }
     public String getNombre() {
         return nombre;
     }

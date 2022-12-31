@@ -20,7 +20,7 @@ public class PanelVideo extends JPanel {
         this.setSize(800,800);
         this.setVisible(true);
 
-        ArrayList<Video> videos = DBUtils.getVideos();
+        ArrayList<Video> videos = DBUtils.getVideos(); //Array de objetos "Video"
 
         int i;
         for (i=0; i < videos.size(); i++) {

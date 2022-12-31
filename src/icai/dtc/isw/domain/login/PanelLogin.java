@@ -34,6 +34,7 @@ public class PanelLogin extends JPanel {
 
         JPanel fila1 = new JPanel();
 
+        //Campo para que el usuario introduzca el nombre
         JLabel lblUsuario = new JLabel("Introduzca nombre de usuario: ");
         fila1.add(lblUsuario);
 
@@ -44,6 +45,7 @@ public class PanelLogin extends JPanel {
 
         JPanel fila2 = new JPanel();
 
+        //Campo para que el usuario introduzca la contraseña
         JLabel lblPassword = new JLabel("Introduzca contraseña: ");
         fila2.add(lblPassword);
         txtPassword = new JPasswordField(10);
@@ -54,12 +56,13 @@ public class PanelLogin extends JPanel {
         JPanel fila3 = new JPanel();
 
         btnLogin = CrearBoton.normal("Iniciar sesión");
-        btnRegister = CrearBoton.normal("Registrarse");
+        btnRegister = CrearBoton.normal("Registrarse"); //Boton para cambiar de interfaz (lo hace el cardLayout en la clase LogIn)
         fila3.add(btnLogin);
         fila3.add(btnRegister);
 
         this.add(fila3);
 
+        //Comprueba que el campo de texto tenga algo y comprueba los credenciales en la base de datos
         btnLogin.addActionListener(actionEvent -> {
             if (txtUser.getText().isEmpty() || txtPassword.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Porfavor, rellena todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);

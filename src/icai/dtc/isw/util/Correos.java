@@ -21,6 +21,7 @@ public class Correos {
         final String user = "databall.notificaciones@gmail.com"; //Hay que crear un correo
         final String password = "gvjkcxgpmzpzgftq";
 
+        //Configuración del puerto y host para enviar correos
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
         props.put("mail.smtp.port", "587"); //TLS Port
@@ -36,21 +37,22 @@ public class Correos {
         Session session = Session.getInstance(props, auth);
 
         try {
+            //Diseño del correo que se le enviará al usuario.
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(destinatario));
-            message.setSubject("DataBall - Recuperar contraseña");
-            message.setText("Tu nueva contraseña es: \n" + nuevaPass + "\n" + "Recuerda que puedes cambiarla en cualquier momento en la sección de perfil.");
+            message.setSubject("DataBall - Recuperar contraseña"); //Asunto del correo
+            message.setText("Tu nueva contraseña es: \n" + nuevaPass + "\n" + "Recuerda que puedes cambiarla en cualquier momento en la sección de perfil."); //Cuerpo del correo
 
-            Transport.send(message);
+            Transport.send(message); //Envia el correo
 
             System.out.println("El correo se ha enviado correctamente");
-            return true;
+            return true; //Confirmación para el PanelResetPass
 
         } catch (MessagingException e) {
             e.printStackTrace();
             System.out.println("Error al enviar el correo");
-            return false;
+            return false; //Confirmación para el PanelResetPass
         }
     }
 

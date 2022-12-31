@@ -9,7 +9,6 @@ import icai.dtc.isw.util.ToTable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Ventana para la búsqueda de jugadores y equipos
@@ -26,6 +25,7 @@ public class JVentana extends JPanel {
         //Pongo un panel arriba con el título
         JLabel lblTitulo = new JLabel("Prueba COMUNICACIÓN", SwingConstants.CENTER);
         this.setLayout(new GridLayout(1,2));
+
         lblTitulo.setFont(new Font("Courier", Font.BOLD, 20));
         JButton btnJugadores= CrearBoton.normal("Buscar jugadores");
         JButton btnEquipos= CrearBoton.normal("Buscar equipos");
@@ -35,6 +35,9 @@ public class JVentana extends JPanel {
         JPanel pnlBusqueda= new JPanel();
         pnlBusqueda.add(txtJugador);
         this.setSize(1000,1000);
+
+        //El usuario elige los parametros con los cuales filtrará la busqueda.
+        //Filtros de jugadores
         opciones_j= new JComboBox();
         opciones_j.addItem("nombre");
         opciones_j.addItem("posicion");
@@ -47,6 +50,8 @@ public class JVentana extends JPanel {
         JLabel lblJugadores =new JLabel("Opcion de jugadores");
         pnlBusqueda.add(lblJugadores);
         pnlBusqueda.add(opciones_j);
+
+        //Filtros de equipos
         opciones_e= new JComboBox();
         opciones_e.addItem("nombre");
         opciones_e.addItem("entrenador");
@@ -58,6 +63,8 @@ public class JVentana extends JPanel {
         pnlBusqueda.add(opciones_e);
         pnlBusqueda.add(btnJugadores);
         pnlBusqueda.add(btnEquipos);
+
+        //El boton comprueba que hay equipos en la base de datos y si los hay genera una tabla en la que pone el resultado de la búsqueda.
         btnEquipos.addActionListener(actionEvent-> {
             ArrayList<Equipo> listaEquipos = DBUtils.BuscarEquipo(txtJugador.getText().trim(), (String) this.opciones_e.getSelectedItem());
             if (listaEquipos.size()==0) {
@@ -72,10 +79,12 @@ public class JVentana extends JPanel {
                 this.updateUI();
             }
         });
+
+        //Boton que muestra todos los jugadores en una tabla, aplicando los filtros seleccionados
         btnJugadores.addActionListener(actionEvent -> {
             //Lista que contendrá todos los jugadores obtenidos en la búsqueda.
             pnlBusqueda.remove(tabla);
-            jugadores = DBUtils.BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem());
+            jugadores = DBUtils.BuscarJugador(txtJugador.getText().trim(), (String) this.opciones_j.getSelectedItem()); //En la clase DBUtils se encuentra la llamada a la base de datos, devuleve una lista
             tabla= ToTable.jugadores(jugadores);
             pnlBusqueda.add(tabla);
             this.updateUI();

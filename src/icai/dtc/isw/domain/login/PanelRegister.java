@@ -23,6 +23,7 @@ public class PanelRegister extends JPanel {
     private JTextField txtUser;
     private JFrame login;
 
+    //Interfaz de registro de usuarios
     public PanelRegister(JFrame ventanaLogin) {
 
         login = ventanaLogin;
@@ -31,7 +32,7 @@ public class PanelRegister extends JPanel {
 
         JPanel fila1 = new JPanel();
 
-        JLabel lblUsuario = new JLabel("Añade un nombre de usuario: ");
+        JLabel lblUsuario = new JLabel("Añade un nombre de usuario: "); //Campo para que el usuario rellene la información
         fila1.add(lblUsuario);
 
         txtUser = new JTextField(15);
@@ -41,7 +42,7 @@ public class PanelRegister extends JPanel {
 
         JPanel fila2 = new JPanel();
 
-        JLabel lblPassword = new JLabel("Añade una contraseña: ");
+        JLabel lblPassword = new JLabel("Añade una contraseña: "); //Campo para que el usuario rellene la información
         fila2.add(lblPassword);
         txtPassword = new JPasswordField(15);
         fila2.add(txtPassword);
@@ -51,7 +52,7 @@ public class PanelRegister extends JPanel {
         //Juan
         JPanel fila3 =new JPanel();
 
-        JLabel lblCorreo=new JLabel("Añade un correo");
+        JLabel lblCorreo=new JLabel("Añade un correo"); //Campo para que el usuario rellene la información
         txtCorreo= new JTextField(20);
         fila3.add(lblCorreo);
         fila3.add(txtCorreo);
@@ -60,13 +61,14 @@ public class PanelRegister extends JPanel {
 
         JPanel fila4 = new JPanel();
 
-        btnRegister = CrearBoton.normal("Registrarse");
+        btnRegister = CrearBoton.normal("Registrarse"); //Boton de registro
         fila4.add(btnRegister);
-        atras = CrearBoton.normal("Atrás");
+        atras = CrearBoton.normal("Atrás"); //Botón de cambio de interfaz
         fila4.add(atras);
 
         this.add(fila4);
 
+        //Registra al usuario en la base de datos si todos los campos estan llenos
         btnRegister.addActionListener(actionEvent->{
             if (txtUser.getText().isEmpty() || txtPassword.getText().isEmpty() || txtCorreo.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Porfavor, rellena todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -93,6 +95,8 @@ public class PanelRegister extends JPanel {
         session.put("correo", correo);
         session.put("password", password);
         session=cliente.sentMessage(context,session); //Devuelve un string con info sobre el registro
+
+        //Dependiendo del resultado de intentar guardar al usuario en la base de datos hará una cosa u otra.
         if(session.get("confirmation").equals("bien")) { //if resultadoRegister equals ()
             JOptionPane.showMessageDialog(this, "Usuario registrado correctamente", "Bienvenido a Databall", JOptionPane.INFORMATION_MESSAGE);
             txtPassword.setText("");;

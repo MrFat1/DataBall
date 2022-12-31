@@ -5,10 +5,14 @@ import icai.dtc.isw.util.CrearPanel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel principal
+ */
 public class PanelAdminMain extends JPanel {
 
-    final static String ADMIN = "Admin";
-    final static String EDITAR_USER = "Buscar usuario";
+    //Configuramos el CardLayout
+    final static String ADMIN = "Admin"; //Interfaz principal
+    final static String EDITAR_USER = "Buscar usuario"; //Panel de edición de usuario
 
     PanelAdmin pnlAdmin = new PanelAdmin();
     PnlEditarUser pnlEditarUser = new PnlEditarUser();
@@ -33,6 +37,7 @@ public class PanelAdminMain extends JPanel {
         pnlCard.add(pnlAdmin, ADMIN);
         pnlCard.add(pnlEditarUser, EDITAR_USER);
 
+        //Botones para moverse entre los distintos paneles (interfaces)
         pnlAdmin.btnEditarUsuario.addActionListener(actionEvent-> {
             CardLayout cl = (CardLayout)(pnlCard.getLayout());
             cl.show(pnlCard, EDITAR_USER);

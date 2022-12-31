@@ -24,7 +24,7 @@ public class PanelResetPass extends JPanel {
 
         JPanel fila1 = new JPanel();
 
-        JLabel lblCorreo = new JLabel("Introduce tu correo para recupear la contraseña:");
+        JLabel lblCorreo = new JLabel("Introduce tu correo para recupear la contraseña:"); //Campo para que el usuario introduza un correo de recuperación
         fila1.add(lblCorreo);
         txtCorreo = new JTextField(25);
         fila1.add(txtCorreo);
@@ -32,9 +32,10 @@ public class PanelResetPass extends JPanel {
         this.add(fila1);
 
         JPanel fila2 = new JPanel();
-        JButton btnSendEmail = CrearBoton.normal("Enviar");
+        JButton btnSendEmail = CrearBoton.normal("Enviar"); //Botón para enviar el correo al email indicado en el campo de texto
         fila2.add(btnSendEmail);
 
+        //Comprueba que es un correo válido (contiene el @) y envía el correo
         btnSendEmail.addActionListener(actionEvent -> {
             if (txtCorreo.getText().isEmpty() || !(txtCorreo.getText().contains("@"))) {
                 JOptionPane.showMessageDialog(this, "Introduce un correo electrónico válido.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -61,13 +62,19 @@ public class PanelResetPass extends JPanel {
         String context="/getCorreo"; //Tag para el server
         session.put("correo",  correo);
         session=cliente.sentMessage(context,session);
+
+        //La clase correos devolverá el estado de la confirmación
         if((boolean) session.get("confirmation")) {
+
+            //Generador de contraseñas alfanuméricas aleatorias de 10 caracteres
             String nuevaPass = new Random().ints(10, 97, 122).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
+
             if (Correos.nuevaContrasena(correo, nuevaPass)) {
                 JOptionPane.showMessageDialog(this, "Enviando correo, un momento...", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                 txtCorreo.setText("");
                 cambiarPass(correo, nuevaPass);
             } else {
+                //En caso de error, habrá que comprobar si hay algún problema con el token del correo (Daniel sabe)
                 JOptionPane.showMessageDialog(this, "Ha habido un error al enviar el correo, contacta con un Administrador.", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }

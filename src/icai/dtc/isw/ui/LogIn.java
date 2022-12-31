@@ -45,6 +45,7 @@ public class LogIn extends JFrame {
 
 		JPanel arriba = new JPanel();
 
+		//Añadimos los paneles al CardLayout
 		pnlCard.setLayout(new CardLayout(0, 0));
 		pnlCard.add(pnlLogin, LOGIN);
 		pnlCard.add(pnlReset, RESETPASS);
@@ -55,7 +56,7 @@ public class LogIn extends JFrame {
 		this.add(arriba, BorderLayout.NORTH);
 
 		JLabel img = new JLabel();
-		ImageIcon icono = new ImageIcon("resources/databall.png");
+		ImageIcon icono = new ImageIcon("resources/databall.png"); //Logo de databall para mostrarlo encima de las interfaces de usuario
 		Image imgg = icono.getImage();
 		img.setIcon(new ImageIcon(imgg.getScaledInstance(465, 340, Image.SCALE_SMOOTH)));
 		arriba.add(img);
@@ -78,6 +79,7 @@ public class LogIn extends JFrame {
 			cl.show(pnlCard, LOGIN);
 		});
 
+		//Botones para cambiar de interfaz
 		pnlLogin.btnRegister.addActionListener(actionevent -> {
 			CardLayout cl = (CardLayout)(pnlCard.getLayout());
 			cl.show(pnlCard, REGISTER);
